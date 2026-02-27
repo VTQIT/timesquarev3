@@ -23,22 +23,57 @@
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 body{background:var(--bg);color:var(--text)}
-.nav{
-  position:sticky;top:0;z-index:1000;
+
+/* ===================== */
+/* NEW TIMESQUARE HEADER */
+/* ===================== */
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  height:56px;
   background:var(--card);
-  padding:12px 16px;
-  display:flex;align-items:center;justify-content:space-between;
   border-bottom:1px solid #334155;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  gap:20px;
 }
-.logo{font-weight:700;font-size:18px}
-.tabs{display:flex;gap:10px;overflow-x:auto}
-.tab{
-  padding:6px 12px;border-radius:20px;
-  background:#334155;color:white;
-  cursor:pointer;font-size:13px;
+
+.logo{
+  font-weight:800;
+  font-size:18px;
+  color:var(--blue);
   white-space:nowrap;
 }
-.tab.active{background:var(--blue)}
+
+.nav-tabs{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  flex:1;
+}
+
+.tab{
+  padding:6px 14px;
+  border-radius:20px;
+  background:#334155;
+  color:white;
+  cursor:pointer;
+  font-size:13px;
+  white-space:nowrap;
+  border:none;
+}
+
+.tab.active{
+  background:var(--blue);
+}
+
+/* ===================== */
+/* EXISTING STYLES BELOW */
+/* ===================== */
+
 .feed{
   max-width:700px;margin:auto;
   padding:20px 15px;
@@ -90,18 +125,20 @@ body{background:var(--bg);color:var(--text)}
 
 <body>
 
-<div class="nav">
+<!-- ✅ NEW HEADER -->
+<nav>
   <div class="logo">Timesquare LIVE</div>
-  <div class="tabs">
-    <div class="tab active">General</div>
-    <div class="tab">Business</div>
-    <div class="tab">Technology</div>
-    <div class="tab">Sports</div>
-    <div class="tab">Entertainment</div>
-    <div class="tab">Health</div>
-    <div class="tab">Science</div>
+
+  <div class="nav-tabs">
+    <button class="tab active">General</button>
+    <button class="tab">Business</button>
+    <button class="tab">Technology</button>
+    <button class="tab">Sports</button>
+    <button class="tab">Entertainment</button>
+    <button class="tab">Health</button>
+    <button class="tab">Science</button>
   </div>
-</div>
+</nav>
 
 <div class="feed"></div>
 
