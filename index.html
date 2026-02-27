@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Timesquare Live</title>
+
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --text:#e2e8f0;
+  --muted:#94a3b8;
+  --blue:#1877f2;
+}
+
+[data-theme="light"]{
+  --bg:#f1f5f9;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#475569;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:var(--bg);color:var(--text)}
+.nav{
+  position:sticky;top:0;z-index:1000;
+  background:var(--card);
+  padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid #334155;
+}
+.logo{font-weight:700;font-size:18px}
+.tabs{display:flex;gap:10px;overflow-x:auto}
+.tab{
+  padding:6px 12px;border-radius:20px;
+  background:#334155;color:white;
+  cursor:pointer;font-size:13px;
+  white-space:nowrap;
+}
+.tab.active{background:var(--blue)}
+.feed{
+  max-width:700px;margin:auto;
+  padding:20px 15px;
+}
+.card{
+  background:var(--card);
+  border-radius:12px;
+  margin-bottom:18px;
+  overflow:hidden;
+  animation:fade .4s ease;
+}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.card-pad{padding:15px}
+.card-meta{
+  display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:8px
+}
+.card-tag{
+  background:var(--blue);
+  padding:3px 8px;border-radius:6px;
+  font-size:11px
+}
+.card-hl{
+  font-size:18px;font-weight:600;
+  margin:8px 0;cursor:pointer
+}
+.card-body{
+  font-size:14px;color:var(--muted);
+  margin-bottom:10px
+}
+.media-img{
+  width:100%;max-height:320px;
+  object-fit:cover
+}
+.card-actions{
+  display:flex;gap:10px;margin-top:10px
+}
+.like-btn,.read-btn{
+  border:none;padding:6px 12px;
+  border-radius:8px;cursor:pointer;
+  background:#334155;color:white;
+}
+.like-btn.liked{background:var(--blue)}
+</style>
+</head>
+
+<body>
+
+<div class="nav">
+  <div class="logo">Timesquare LIVE</div>
+  <div class="tabs">
+    <div class="tab active">General</div>
+    <div class="tab">Business</div>
+    <div class="tab">Technology</div>
+    <div class="tab">Sports</div>
+    <div class="tab">Entertainment</div>
+    <div class="tab">Health</div>
+    <div class="tab">Science</div>
+  </div>
+</div>
+
+<div class="feed"></div>
+
+<script>
+let currentCategory = "general"
+let currentPage = 1
+let loading = false
+
+async function loadNews(reset = false){
+  if(loading) return
+  loading = true
+
+  if(reset){
+    document.querySelector(".feed").innerHTML = ""
+    currentPage = 1
+  }
+
+  try{
+    const res = await fetch(`/api/news?category=${currentCategory}&page=${currentPage}`)
+    const data = await res.json()
+
+    const feed = document.querySelector(".feed")
+
+    data.forEach(article=>{
+      const card = document.createElement("div")
+      card.className = "card"
+
+      card.innerHTML = `
+        <div class="card-pad">
+          <div class="card-meta">
+            <div style="font-size:12px;color:var(--muted)">Timesquare AI</div>
+            <div class="card-tag">${article.category}</div>
+          </div>
+
+          <div class="card-hl" onclick="window.open('${article.url}','_blank')">
+            ${article.headline || "No Title"}
+          </div>
+
+          ${article.image ? `
+            <img class="media-img" src="${article.image}" />
+          ` : ""}
+
+          <div class="card-body">
+            ${article.summary || "No description available."}
+          </div>
+
+          <div style="font-size:12px;color:var(--muted)">
+            Source: ${article.source}
+          </div>
+
+          <div class="card-actions">
+            <button class="like-btn" onclick="toggleLike(this)">👍 Like</button>
+            <button class="read-btn" onclick="window.open('${article.url}','_blank')">
+              Read
+            </button>
+          </div>
+        </div>
+      `
+
+      feed.appendChild(card)
+    })
+
+    currentPage++
+  }catch(err){
+    console.error("Fetch failed")
+  }
+
+  loading = false
+}
+
+function toggleLike(btn){
+  btn.classList.toggle("liked")
+}
+
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
+    tab.classList.add("active")
+    currentCategory = tab.innerText.toLowerCase()
+    loadNews(true)
+  })
+})
+
+document.addEventListener("DOMContentLoaded",()=>{
+  loadNews()
+})
+
+window.addEventListener("scroll",()=>{
+  if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 300){
+    loadNews()
+  }
+})
+</script>
+
+</body>
+</html>
