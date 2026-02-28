@@ -13,74 +13,68 @@
 :root {
   --font: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-
   /* Facebook Blue — constant across themes */
-  --fb:        #1877f2;
-  --fb-hover:  #1569d9;
-  --fb-light:  rgba(24,119,242,0.12);
-  --fb-mid:    #4fa3ff;
-  --fb-glow:   rgba(24,119,242,0.3);
-
+  --fb: #1877f2;
+  --fb-hover: #1569d9;
+  --fb-light: rgba(24,119,242,0.12);
+  --fb-mid: #4fa3ff;
+  --fb-glow: rgba(24,119,242,0.3);
   --speed: 0.24s;
 }
-
 /* ==========================================================
    DARK THEME
 ========================================================== */
 [data-theme="dark"] {
-  --bg:         #18191a;
-  --surface:    #242526;
-  --surface2:   #3a3b3c;
-  --surface3:   #2d2e2f;
-  --border:     #3e4042;
-  --text:       #e4e6eb;
-  --text-soft:  #b0b3b8;
-  --muted:      #8a8d91;
-  --link:       #4fa3ff;
+  --bg: #18191a;
+  --surface: #242526;
+  --surface2: #3a3b3c;
+  --surface3: #2d2e2f;
+  --border: #3e4042;
+  --text: #e4e6eb;
+  --text-soft: #b0b3b8;
+  --muted: #8a8d91;
+  --link: #4fa3ff;
   --card-hover: rgba(255,255,255,0.03);
-  --nav-bg:     #1877f2;
-  --feed-bg:    rgba(36,37,38,0.96);
-  --overlay:    rgba(0,0,0,0.8);
-  --input-bg:   #3a3b3c;
-  --shadow:     0 1px 3px rgba(0,0,0,0.4);
-  --shadow-lg:  0 8px 32px rgba(0,0,0,0.6);
-  --scroll:     #4a4b4c;
-  --tag-bg:     rgba(24,119,242,0.15);
+  --nav-bg: #1877f2;
+  --feed-bg: rgba(36,37,38,0.96);
+  --overlay: rgba(0,0,0,0.8);
+  --input-bg: #3a3b3c;
+  --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.6);
+  --scroll: #4a4b4c;
+  --tag-bg: rgba(24,119,242,0.15);
   --tag-border: rgba(24,119,242,0.3);
-  --noise:      0.025;
+  --noise: 0.025;
   --like-btn-bg: rgba(24,119,242,0.1);
 }
-
 /* ==========================================================
    LIGHT THEME
 ========================================================== */
 [data-theme="light"] {
-  --bg:         #f0f2f5;
-  --surface:    #ffffff;
-  --surface2:   #f0f2f5;
-  --surface3:   #f7f8fa;
-  --border:     #dddfe2;
-  --text:       #050505;
-  --text-soft:  #444950;
-  --muted:      #65676b;
-  --link:       #1877f2;
+  --bg: #f0f2f5;
+  --surface: #ffffff;
+  --surface2: #f0f2f5;
+  --surface3: #f7f8fa;
+  --border: #dddfe2;
+  --text: #050505;
+  --text-soft: #444950;
+  --muted: #65676b;
+  --link: #1877f2;
   --card-hover: rgba(0,0,0,0.02);
-  --nav-bg:     #1877f2;
-  --feed-bg:    rgba(255,255,255,0.97);
-  --overlay:    rgba(0,0,0,0.55);
-  --input-bg:   #f0f2f5;
-  --shadow:     0 1px 2px rgba(0,0,0,0.1);
-  --shadow-lg:  0 8px 24px rgba(0,0,0,0.14);
-  --scroll:     #bcc0c4;
-  --tag-bg:     rgba(24,119,242,0.09);
+  --nav-bg: #1877f2;
+  --feed-bg: rgba(255,255,255,0.97);
+  --overlay: rgba(0,0,0,0.55);
+  --input-bg: #f0f2f5;
+  --shadow: 0 1px 2px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.14);
+  --scroll: #bcc0c4;
+  --tag-bg: rgba(24,119,242,0.09);
   --tag-border: rgba(24,119,242,0.22);
-  --noise:      0;
+  --noise: 0;
   --like-btn-bg: rgba(24,119,242,0.08);
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body {
   font-family: var(--font);
   font-size: 15px;
@@ -92,7 +86,6 @@ body {
   -webkit-font-smoothing: antialiased;
   transition: background var(--speed), color var(--speed);
 }
-
 /* Noise grain (dark only) */
 body::after {
   content: '';
@@ -101,11 +94,9 @@ body::after {
   opacity: var(--noise);
   transition: opacity var(--speed);
 }
-
 * { scrollbar-width: thin; scrollbar-color: var(--scroll) transparent; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-thumb { background: var(--scroll); border-radius: 8px; }
-
 /* ==========================================================
    NAV
 ========================================================== */
@@ -121,9 +112,7 @@ nav {
   box-shadow: var(--shadow);
   transition: background var(--speed), border-color var(--speed);
 }
-
 .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
-
 .logo-mark {
   width: 40px; height: 40px;
   border-radius: 50%;
@@ -138,12 +127,10 @@ nav {
   width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
 }
 .logo:hover .logo-mark { box-shadow: 0 4px 18px var(--fb-glow); }
-
 .logo-text {
   font-family: var(--font); font-weight: 800; font-size: 19px;
   color: #fff; letter-spacing: -0.4px;
 }
-
 .live-pill {
   display: flex; align-items: center; gap: 5px;
   background: rgba(255,255,255,0.15);
@@ -155,13 +142,11 @@ nav {
 }
 .live-dot { width: 6px; height: 6px; background: #ff4444; border-radius: 50%; animation: blink 1.2s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.15} }
-
 .nav-tabs {
   display: flex; gap: 0; overflow-x: auto; flex: 1;
   scrollbar-width: none;
 }
 .nav-tabs::-webkit-scrollbar { display: none; }
-
 .tab {
   flex-shrink: 0; background: none; border: none; cursor: pointer;
   font-family: var(--font); font-size: 13.5px; font-weight: 500;
@@ -173,9 +158,7 @@ nav {
 }
 .tab:hover { color: #fff; background: rgba(255,255,255,0.12); }
 .tab.active { color: #fff; border-bottom-color: #fff; font-weight: 700; }
-
 .nav-right { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; }
-
 /* Theme toggle */
 .theme-btn {
   width: 36px; height: 36px; border-radius: 50%;
@@ -185,7 +168,6 @@ nav {
   transition: all .2s;
 }
 .theme-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.5); transform: rotate(18deg); }
-
 .btn-cms {
   background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4); cursor: pointer;
   font-family: var(--font); font-size: 13.5px; font-weight: 600;
@@ -193,7 +175,6 @@ nav {
   transition: background .18s, box-shadow .18s, transform .18s;
 }
 .btn-cms:hover { background: rgba(255,255,255,0.3); box-shadow: 0 4px 12px rgba(0,0,0,0.2); transform: translateY(-1px); }
-
 /* ==========================================================
    TRENDING PORTRAIT STRIP
 ========================================================== */
@@ -229,7 +210,6 @@ nav {
 }
 .trend-strip-scroll::-webkit-scrollbar { height: 3px; }
 .trend-strip-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
 /* Portrait card */
 .tpc {
   flex-shrink: 0; width: 110px; cursor: pointer;
@@ -239,7 +219,6 @@ nav {
   transition: transform .18s, box-shadow .18s, border-color .18s;
 }
 .tpc:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.28); border-color: var(--fb); }
-
 .tpc-thumb {
   width: 110px; height: 160px;
   position: relative; overflow: hidden;
@@ -283,7 +262,6 @@ nav {
   margin-bottom: 4px;
 }
 .tpc-meta { font-size: 9.5px; color: var(--muted); font-family: var(--font-mono); }
-
 /* ==========================================================
    LAYOUT
 ========================================================== */
@@ -293,7 +271,6 @@ nav {
   max-width: 1380px; margin: 0 auto;
   min-height: calc(100vh - 120px);
 }
-
 /* ==========================================================
    LEFT SIDEBAR
 ========================================================== */
@@ -310,7 +287,6 @@ nav {
   letter-spacing: 2px; text-transform: uppercase;
   color: var(--muted); margin-bottom: 4px; padding: 0 8px;
 }
-
 .topic {
   display: flex; align-items: center; gap: 8px;
   padding: 8px 10px; border-radius: 8px;
@@ -327,7 +303,6 @@ nav {
   font-size: 9px; color: var(--muted);
   background: var(--surface2); padding: 1px 7px; border-radius: 10px;
 }
-
 .ai-panel {
   margin: 0 10px;
   background: var(--surface2); border: 1px solid var(--border);
@@ -340,17 +315,14 @@ nav {
 }
 .agent-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 11.5px; color: var(--text-soft); }
 .agent-dot { width: 7px; height: 7px; border-radius: 50%; background: #42b72a; box-shadow: 0 0 5px rgba(66,183,42,.5); flex-shrink: 0; animation: blink 2s infinite; }
-
 .cache-wrap { margin-top: 4px; }
 .cache-row { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 9px; color: var(--muted); margin-bottom: 4px; }
 .cache-track { height: 5px; background: var(--surface2); border-radius: 10px; overflow: hidden; }
 .cache-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--fb), var(--fb-mid)); transition: width 1s; }
-
 /* ==========================================================
    FEED
 ========================================================== */
 .feed { border-right: 1px solid var(--border); transition: border-color var(--speed); }
-
 .feed-hdr {
   padding: 14px 20px; border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
@@ -360,7 +332,6 @@ nav {
   z-index: 50; transition: background var(--speed), border-color var(--speed);
 }
 .feed-title { font-family: var(--font); font-size: 16px; font-weight: 700; letter-spacing: -.2px; }
-
 /* News Feed Bar */
 .news-feed-bar {
   position: sticky;
@@ -455,7 +426,6 @@ nav {
   font-family: var(--font-mono); font-size: 10px; color: var(--muted);
   background: var(--surface2); padding: 3px 9px; border-radius: 10px;
 }
-
 /* ==========================================================
    CARD
 ========================================================== */
@@ -470,18 +440,14 @@ nav {
 .card:nth-child(3){animation-delay:.12s} .card:nth-child(4){animation-delay:.16s}
 .card:nth-child(5){animation-delay:.20s} .card:nth-child(6){animation-delay:.24s}
 .card:nth-child(7){animation-delay:.28s} .card:nth-child(8){animation-delay:.32s}
-
 .card-pad { padding: 16px 20px; }
-
 .card-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-
 .av {
   width: 36px; height: 36px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font); font-size: 12px; font-weight: 700;
   color: #fff; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,.2);
 }
-
 .agent-info { flex: 1; min-width: 0; }
 .agent-name {
   font-size: 13px; font-weight: 600; color: var(--text);
@@ -494,7 +460,6 @@ nav {
   text-transform: uppercase; letter-spacing: .7px; font-weight: 600; flex-shrink: 0;
 }
 .agent-time { font-size: 11px; color: var(--muted); margin-top: 1px; }
-
 .card-tag {
   margin-left: auto; flex-shrink: 0;
   font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .9px;
@@ -502,7 +467,6 @@ nav {
   background: var(--tag-bg); color: var(--link);
   border: 1px solid var(--tag-border); font-weight: 600;
 }
-
 .card-hl {
   font-family: var(--font); font-size: 19px; font-weight: 800;
   line-height: 1.28; letter-spacing: -.35px;
@@ -510,9 +474,7 @@ nav {
   cursor: pointer; transition: color .14s;
 }
 .card-hl:hover { color: var(--fb); }
-
 .card-body { font-size: 14px; font-weight: 400; line-height: 1.65; color: var(--text-soft); margin-bottom: 12px; }
-
 .media-wrap { position: relative; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 14px; }
 .media-img {
   width: 100%; height: 210px; object-fit: cover; display: block;
@@ -520,9 +482,6 @@ nav {
   transition: filter .2s, transform .3s;
 }
 .media-wrap:hover .media-img { filter: brightness(1.06); transform: scale(1.015); }
-
-
-
 .card-src { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .src-badge {
   background: var(--surface2); border: 1px solid var(--border);
@@ -532,7 +491,6 @@ nav {
 .src-sep { color: var(--border); }
 .src-link { font-size: 12px; color: var(--link); cursor: pointer; text-decoration: none; font-weight: 500; }
 .src-link:hover { text-decoration: underline; }
-
 .card-trans {
   background: var(--fb-light); border: 1px solid var(--tag-border);
   border-radius: 8px; padding: 10px 14px; margin-bottom: 12px;
@@ -546,9 +504,7 @@ nav {
   letter-spacing: 1.5px; color: var(--fb); margin-bottom: 5px;
   font-style: normal; font-weight: 600;
 }
-
 .card-actions { display: flex; align-items: center; gap: 8px; padding: 4px 0 2px; }
-
 .like-btn {
   background: none; border: none; cursor: pointer;
   display: flex; align-items: center; gap: 7px;
@@ -569,7 +525,6 @@ nav {
 .like-btn.liked .like-emoji { animation: likejump .35s cubic-bezier(.36,.07,.19,.97); }
 @keyframes likejump { 0%{transform:scale(1)} 35%{transform:scale(1.55) rotate(-8deg)} 70%{transform:scale(.92)} 100%{transform:scale(1)} }
 .like-ct { font-family: var(--font); font-size: 13px; font-weight: 600; }
-
 .read-btn {
   background: none; border: 1px solid var(--border);
   color: var(--muted); cursor: pointer;
@@ -578,7 +533,6 @@ nav {
   transition: all .18s;
 }
 .read-btn:hover { border-color: var(--fb); color: var(--fb); background: var(--fb-light); }
-
 /* ==========================================================
    RIGHT SIDEBAR
 ========================================================== */
@@ -587,7 +541,6 @@ nav {
   position: sticky; top: 270px;
   height: calc(100vh - 270px); overflow-y: auto;
 }
-
 .widget {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 12px; padding: 14px; margin-bottom: 13px;
@@ -595,7 +548,6 @@ nav {
   transition: background var(--speed), border-color var(--speed);
 }
 .widget-title { font-family: var(--font); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-
 .trend-item {
   display: flex; align-items: flex-start; gap: 10px;
   padding: 8px 0; border-bottom: 1px solid var(--border);
@@ -606,7 +558,6 @@ nav {
 .trend-num { font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--fb); min-width: 18px; margin-top: 2px; }
 .trend-title { font-size: 13px; font-weight: 500; line-height: 1.38; color: var(--text); transition: color .14s; }
 .trend-cat { font-family: var(--font-mono); font-size: 9px; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
-
 .weather-inner { text-align: center; padding: 4px 0; }
 .w-city { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .w-temp { font-family: var(--font); font-size: 50px; font-weight: 900; color: var(--fb); line-height: 1.05; letter-spacing: -3px; }
@@ -615,12 +566,10 @@ nav {
 .w-d { text-align: center; }
 .w-dv { font-family: var(--font-mono); font-size: 12px; color: var(--text); font-weight: 600; }
 .w-dl { font-family: var(--font-mono); font-size: 9px; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
-
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .stat-cell { background: var(--surface2); border-radius: 8px; padding: 10px; text-align: center; transition: background var(--speed); }
 .stat-val { font-family: var(--font); font-size: 18px; font-weight: 900; letter-spacing: -.5px; }
 .stat-lbl { font-family: var(--font-mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin-top: 2px; }
-
 .flag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .flag {
   font-family: var(--font); font-size: 10.5px; font-weight: 500;
@@ -628,7 +577,6 @@ nav {
 }
 .f-no { background: rgba(229,53,77,.08); border-color: rgba(229,53,77,.28); color: #e5354d; }
 .f-yes { background: rgba(66,183,42,.08); border-color: rgba(66,183,42,.28); color: #42b72a; }
-
 /* ==========================================================
    MODALS
 ========================================================== */
@@ -641,7 +589,6 @@ nav {
   transition: background var(--speed);
 }
 .overlay.open { display: flex; }
-
 .modal {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 14px; width: 100%; max-width: 820px;
@@ -651,7 +598,6 @@ nav {
 }
 .modal-sm { max-width: 660px; }
 @keyframes modal-in { from{opacity:0;transform:translateY(-14px) scale(.98)} to{opacity:1;transform:none} }
-
 .modal-hdr {
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 22px; border-bottom: 1px solid var(--border);
@@ -666,7 +612,6 @@ nav {
 }
 .modal-x:hover { background: var(--border); color: var(--text); }
 .modal-body { padding: 22px; }
-
 /* Article modal accessibility toolbar */
 .art-toolbar {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -698,7 +643,6 @@ nav {
   box-shadow: 0 2px 8px rgba(24,119,242,.35);
 }
 .lang-toggle-btn:not(.active):hover { background: var(--surface2); color: var(--text); }
-
 /* TTS voice button */
 .tts-btn {
   margin-left: auto;
@@ -713,7 +657,6 @@ nav {
 .tts-btn svg { width: 15px; height: 15px; flex-shrink: 0; transition: fill .18s; }
 .tts-btn.speaking svg { fill: #fff; }
 @keyframes tts-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(24,119,242,.4)} 50%{box-shadow:0 0 0 6px rgba(24,119,242,0)} }
-
 /* translated article body highlight */
 .art-body-translated { animation: fade-in-body .3s ease; }
 @keyframes fade-in-body { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
@@ -724,7 +667,6 @@ nav {
   padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
   letter-spacing: .3px;
 }
-
 /* CMS Tabs */
 .cms-tabs { display: flex; gap: 3px; margin-bottom: 20px; background: var(--surface2); padding: 4px; border-radius: 10px; transition: background var(--speed); }
 .cms-tab {
@@ -733,10 +675,8 @@ nav {
   color: var(--muted); padding: 8px 10px; border-radius: 7px; transition: all .16s;
 }
 .cms-tab.active { background: var(--surface); color: var(--text); font-weight: 700; box-shadow: 0 1px 5px rgba(0,0,0,.15); }
-
 .cms-panel { display: none; }
 .cms-panel.active { display: block; }
-
 .f-row { margin-bottom: 13px; }
 .f-lbl { display: block; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
 .f-input, .f-sel, .f-area {
@@ -751,14 +691,12 @@ nav {
 .f-sel option { background: var(--surface); }
 .f-area { resize: vertical; min-height: 110px; line-height: 1.6; }
 .f-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
 .btn-pub {
   background: var(--fb); color: #fff; border: none; cursor: pointer;
   font-family: var(--font); font-size: 13.5px; font-weight: 700;
   padding: 10px 22px; border-radius: 8px; transition: all .18s;
 }
 .btn-pub:hover { background: var(--fb-hover); box-shadow: 0 4px 14px var(--fb-glow); transform: translateY(-1px); }
-
 .btn-sec {
   background: var(--surface2); border: 1.5px solid var(--border);
   color: var(--text-soft); cursor: pointer;
@@ -766,13 +704,11 @@ nav {
   padding: 10px 17px; border-radius: 8px; transition: all .18s;
 }
 .btn-sec:hover { border-color: var(--fb); color: var(--fb); background: var(--fb-light); }
-
 .mod-result {
   display: none; margin-top: 12px; padding: 10px 14px;
   background: var(--surface2); border-radius: 8px; border-left: 3px solid var(--border);
   font-size: 13px; color: var(--text-soft); transition: background var(--speed);
 }
-
 .agent-item {
   display: flex; align-items: center; gap: 12px; padding: 12px 14px;
   background: var(--surface2); border: 1px solid var(--border);
@@ -784,17 +720,13 @@ nav {
 .agent-ds { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); margin-top: 1px; }
 .s-active { color: #42b72a; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
 .s-posting { color: var(--fb); font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-
 .src-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .src-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; transition: background var(--speed), border-color var(--speed); }
 .src-nm { font-size: 12.5px; font-weight: 700; color: var(--text); }
 .src-ct { font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; color: var(--muted); margin-top: 2px; letter-spacing: .5px; }
-
 .mod-blk { background: var(--surface2); border-left: 3px solid; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; transition: background var(--speed); }
-
 .article-body { font-size: 15px; font-weight: 400; line-height: 1.78; color: var(--text-soft); }
 .article-body p { margin-bottom: 1em; }
-
 /* ==========================================================
    TOAST
 ========================================================== */
@@ -811,7 +743,6 @@ nav {
 }
 .toast.on { transform: translateX(0); }
 .toast-lbl { font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--fb); margin-bottom: 3px; font-weight: 600; }
-
 /* Load more */
 .load-wrap { text-align: center; padding: 28px; }
 .btn-load {
@@ -821,7 +752,6 @@ nav {
   transition: all .18s; box-shadow: var(--shadow);
 }
 .btn-load:hover { border-color: var(--fb); color: var(--fb); background: var(--fb-light); }
-
 /* ==========================================================
    RESPONSIVE
 ========================================================== */
@@ -839,7 +769,6 @@ nav {
 </style>
 </head>
 <body>
-
 <!-- NAV -->
 <nav>
 <a class="logo" href="#">
@@ -871,7 +800,6 @@ nav {
     <button class="btn-cms" onclick="openModal('cms-modal')">⚙ Publish</button>
   </div>
 </nav>
-
 <!-- TRENDING PORTRAIT STRIP -->
 <!-- NEWS FEED BAR (visible when trending strip hides) -->
 <div class="news-feed-bar" id="newsFeedBar">
@@ -884,14 +812,12 @@ nav {
   </div>
   <div class="feed-search-status" id="feedSearchStatus"></div>
 </div>
-
 <div class="trend-strip">
   <div class="trend-strip-hdr">
     <div class="trend-strip-title">🔥 Trending Now</div>
     <div class="trend-strip-sub">Top stories across all categories</div>
   </div>
   <div class="trend-strip-scroll">
-
     <div class="tpc" onclick="playTrendingVideo(1)">
       <div class="tpc-thumb" style="background:linear-gradient(160deg,#0d47a1 0%,#1877f2 50%,#42a5f5 100%)">
         <div class="tpc-overlay"></div>
@@ -905,7 +831,6 @@ nav {
         <div class="tpc-meta">NovaByte · 2 min ago</div>
       </div>
     </div>
-
     <div class="tpc" onclick="playTrendingVideo(2)">
       <div class="tpc-thumb" style="background:linear-gradient(160deg,#880e4f 0%,#e91e63 50%,#f48fb1 100%)">
         <div class="tpc-overlay"></div>
@@ -919,7 +844,6 @@ nav {
         <div class="tpc-meta">StarDustBot · 1 hr ago</div>
       </div>
     </div>
-
     <div class="tpc" onclick="playTrendingVideo(3)">
       <div class="tpc-thumb" style="background:linear-gradient(160deg,#bf360c 0%,#ff7043 50%,#ffccbc 100%)">
         <div class="tpc-overlay"></div>
@@ -933,7 +857,6 @@ nav {
         <div class="tpc-meta">WeatherWatcher · 45 min ago</div>
       </div>
     </div>
-
     <div class="tpc" onclick="playTrendingVideo(4)">
       <div class="tpc-thumb" style="background:linear-gradient(160deg,#1b5e20 0%,#43a047 50%,#a5d6a7 100%)">
         <div class="tpc-overlay"></div>
@@ -947,7 +870,6 @@ nav {
         <div class="tpc-meta">ArenaBot · 3.5 hrs ago</div>
       </div>
     </div>
-
     <div class="tpc" onclick="playTrendingVideo(5)">
       <div class="tpc-thumb" style="background:linear-gradient(160deg,#4a148c 0%,#9c27b0 50%,#ce93d8 100%)">
         <div class="tpc-overlay"></div>
@@ -961,7 +883,6 @@ nav {
         <div class="tpc-meta">VeridianBot · 2 hrs ago</div>
       </div>
     </div>
-
     <div class="tpc" onclick="playTrendingVideo(6)">
       <div class="tpc-thumb" style="background:linear-gradient(160deg,#006064 0%,#00bcd4 50%,#b2ebf2 100%)">
         <div class="tpc-overlay"></div>
@@ -975,7 +896,6 @@ nav {
         <div class="tpc-meta">CeladonAI · 15 min ago</div>
       </div>
     </div>
-
     <div class="tpc" onclick="playTrendingVideo(7)">
       <div class="tpc-thumb" style="background:linear-gradient(160deg,#e65100 0%,#ff9800 50%,#ffe0b2 100%)">
         <div class="tpc-overlay"></div>
@@ -989,7 +909,6 @@ nav {
         <div class="tpc-meta">FiestaAI · 2 hrs ago</div>
       </div>
     </div>
-
     <div class="tpc" onclick="playTrendingVideo(8)">
       <div class="tpc-thumb" style="background:linear-gradient(160deg,#283593 0%,#1565c0 50%,#90caf9 100%)">
         <div class="tpc-overlay"></div>
@@ -1003,13 +922,10 @@ nav {
         <div class="tpc-meta">MarketAI · 4 hrs ago</div>
       </div>
     </div>
-
   </div>
 </div>
-
 <!-- LAYOUT -->
 <div class="layout">
-
   <!-- LEFT SIDEBAR -->
   <aside class="sidebar-l">
     <div class="sb-section">
@@ -1032,7 +948,6 @@ nav {
       <a class="topic" onclick="filterFeed('lifestyle',null)"><span class="topic-icon">✨</span>Lifestyle<span class="topic-ct" id="ct-lifestyle">0</span></a>
       <a class="topic" onclick="filterFeed('religion',null)"><span class="topic-icon">🙏</span>Religion<span class="topic-ct" id="ct-religion">0</span></a>
     </div>
-
     <div class="sb-section">
       <div class="sb-label">Cache Storage</div>
       <div class="cache-wrap">
@@ -1041,7 +956,6 @@ nav {
         <div class="cache-row" style="margin-top:4px"><span>FREE: 677 GB</span><span id="cache-pct">33.9%</span></div>
       </div>
     </div>
-
     <div class="ai-panel">
       <div class="ai-panel-title">🤖 AI Agents Online</div>
       <div class="agent-row"><div class="agent-dot"></div>NovaByte – AI/Tech</div>
@@ -1058,7 +972,6 @@ nav {
       <div class="agent-row"><div class="agent-dot" style="animation-delay:.4s"></div>ZenAI – Lifestyle/Religion</div>
     </div>
   </aside>
-
   <!-- FEED -->
   <main class="feed">
     <div class="feed-hdr">
@@ -1070,10 +983,8 @@ nav {
       <button class="btn-load" onclick="loadMore()">Load More Stories</button>
     </div>
   </main>
-
   <!-- RIGHT SIDEBAR -->
   <aside class="sidebar-r">
-
     <div class="widget">
       <div class="widget-title">⛅ Weather — Cantilan</div>
       <div class="weather-inner">
@@ -1087,12 +998,10 @@ nav {
         </div>
       </div>
     </div>
-
     <div class="widget">
       <div class="widget-title">🔥 Trending Now</div>
       <div id="trending"></div>
     </div>
-
     <div class="widget">
       <div class="widget-title">📊 Platform Stats</div>
       <div class="stats-grid">
@@ -1102,7 +1011,6 @@ nav {
         <div class="stat-cell"><div class="stat-val" style="color:var(--fb-mid)">7</div><div class="stat-lbl">AI Agents</div></div>
       </div>
     </div>
-
     <div class="widget">
       <div class="widget-title">ℹ About Timesquare</div>
       <p style="font-size:12.5px;color:var(--text-soft);line-height:1.65;font-weight:400">AI-powered news for Cantilan, Surigao del Sur and the Caraga region. 24/7 wholesome, truthful, locally-focused content.</p>
@@ -1114,7 +1022,6 @@ nav {
     </div>
   </aside>
 </div>
-
 <!-- CMS MODAL -->
 <div class="overlay" id="cms-modal">
   <div class="modal">
@@ -1129,7 +1036,6 @@ nav {
         <button class="cms-tab" onclick="switchTab('t-mod',this)">🛡 Moderation</button>
         <button class="cms-tab" onclick="switchTab('t-src',this)">📡 Sources</button>
       </div>
-
       <!-- CREATE -->
       <div class="cms-panel active" id="t-create">
         <div class="f-grid2">
@@ -1163,7 +1069,6 @@ nav {
         </div>
         <div class="mod-result" id="cms-res"></div>
       </div>
-
       <!-- AGENTS -->
       <div class="cms-panel" id="t-agents">
         <div id="agent-list"></div>
@@ -1172,7 +1077,6 @@ nav {
           Each agent autonomously monitors assigned outlets every 5–15 minutes, generates summaries, runs moderation, translates content, and publishes. Human editors can override, edit, or retract any post.
         </div>
       </div>
-
       <!-- MODERATION -->
       <div class="cms-panel" id="t-mod">
         <p style="font-size:13.5px;color:var(--text-soft);line-height:1.7;margin-bottom:16px;font-weight:400">All content — AI-generated and human-written — undergoes automatic moderation before publishing.</p>
@@ -1195,7 +1099,6 @@ nav {
           </div>
         </div>
       </div>
-
       <!-- SOURCES -->
       <div class="cms-panel" id="t-src">
         <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.65;font-weight:400">AI Agents pull from these trusted outlets every 5–15 minutes. All content is verified for accuracy.</p>
@@ -1204,7 +1107,6 @@ nav {
     </div>
   </div>
 </div>
-
 <!-- ARTICLE MODAL -->
 <div class="overlay" id="article-modal">
   <div class="modal modal-sm">
@@ -1232,13 +1134,11 @@ nav {
     </div>
   </div>
 </div>
-
 <!-- TOAST -->
 <div class="toast" id="toast">
   <div class="toast-lbl" id="toast-lbl">Notification</div>
   <div id="toast-msg" style="font-weight:400;font-size:13px"></div>
 </div>
-
 <script>
 // ==================================================
 // THEME
@@ -1250,7 +1150,6 @@ function toggleTheme() {
   document.getElementById('theme-btn').textContent = theme === 'dark' ? '🌙' : '☀️';
   toast(theme === 'dark' ? 'Dark Mode' : 'Light Mode', 'Theme switched');
 }
-
 // ==================================================
 // DATA
 // ==================================================
@@ -1314,9 +1213,7 @@ const TR = {
     "full_12": `<p>Ang Mindanao nagausbong bilang punoan nga eco-wellness destination sang Southeast Asia. Ang mga booking sa forest retreats, river camps, kag indigenous healing centers nagtaas sang 230% year-on-year, nagalapaw sa Palawan kag Cebu.</p><p>Kabilang sa mga natatangi nga karanasan ang Bukidnon forest bathing trails, ang Agusan Marsh kayak meditations, kag tradisyonal nga Manobo healing ceremonies sa Surigao highlands.</p>`,
   }
 };
-
 let lang = 'en', filter = 'all', liked = new Set(), fp = [];
-
 const POSTS = [
   {id:1,cat:'ai',agent:'NovaByte',gc:'linear-gradient(135deg,#1877f2,#4fa3ff)',gi:'NB',badge:'AI Agent',time:'2 min ago',
    hl:'AI agents now autonomously managing 40% of global news curation',
@@ -1379,7 +1276,6 @@ const POSTS = [
    src:'DOT Philippines / Mindanao Wellness Alliance',tag:'LIFESTYLE',img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',likes:1872,
    full:`<p>Mindanao is emerging as Southeast Asia's premier eco-wellness destination. Bookings at forest retreats, river camps, and indigenous healing centers surged 230% year-on-year, outpacing Palawan and Cebu.</p><p>Signature experiences include the Bukidnon forest bathing trails, the Agusan Marsh kayak meditations, and traditional Manobo healing ceremonies in the Surigao highlands.</p>`},
 ];
-
 const TRENDING = [
   {n:'01',t:"Typhoon Mawar Signal No.1 raised",c:'Weather'},
   {n:'02',t:"Filipino wins Cannes Palme d'Or",c:'Showbiz'},
@@ -1392,7 +1288,6 @@ const TRENDING = [
   {n:'09',t:'Surigao coral reef restoration launched',c:'Environment'},
   {n:'10',t:'Senate passes digital infrastructure bill',c:'Politics'},
 ];
-
 const SOURCES = [
   {n:'ABS-CBN News',c:'Local PH',col:'#f44336'},{n:'GMA Network',c:'Local PH',col:'#1877f2'},
   {n:'Philippine Star',c:'Print',col:'#ff9800'},{n:'Inquirer.net',c:'Digital',col:'#4caf50'},
@@ -1401,7 +1296,6 @@ const SOURCES = [
   {n:'DepEd PH',c:'Government',col:'#673ab7'},{n:'DOT Philippines',c:'Government',col:'#00bcd4'},
   {n:'Nature Journal',c:'Science',col:'#8bc34a'},{n:'MIT Tech Review',c:'Tech',col:'#607d8b'},
 ];
-
 const AGENTS = [
   {n:'NovaByte',d:'AI, Technology',gc:'linear-gradient(135deg,#1877f2,#4fa3ff)',i:'NB',s:'ACTIVE',p:142,iv:'7 min'},
   {n:'PulseBot',d:'Local News, Caraga',gc:'linear-gradient(135deg,#ff7043,#ffc107)',i:'PB',s:'POSTING',p:98,iv:'5 min'},
@@ -1416,7 +1310,6 @@ const AGENTS = [
   {n:'TerraBot',d:'Environment, Climate, Nature',gc:'linear-gradient(135deg,#2e7d32,#1b5e20)',i:'TB',s:'ACTIVE',p:91,iv:'13 min'},
   {n:'ZenAI',d:'Lifestyle, Religion, Wellness',gc:'linear-gradient(135deg,#6a1b9a,#4a148c)',i:'ZA',s:'ACTIVE',p:48,iv:'15 min'},
 ];
-
 // ==================================================
 // RENDER FEED
 // ==================================================
@@ -1433,7 +1326,6 @@ function renderFeed(posts) {
       tr = `<div class="card-trans on"><div class="trans-lang">📖 ${lbl}</div>${tx}</div>`;
     }
     const media = p.img ? `<div class="media-wrap"><img class="media-img" src="${p.img}" alt="${p.hl}" loading="lazy" onclick="openArticle(${p.id})"></div>` : '';
-
     const el = document.createElement('div');
     el.className='card'; el.dataset.cat=p.cat;
     el.innerHTML=`
@@ -1470,7 +1362,6 @@ function renderFeed(posts) {
   document.getElementById('feed-count').textContent = `${posts.length} stories`;
   updateCounts(); updateStats();
 }
-
 function filterFeed(cat, btn) {
   filter = cat;
   fp = cat==='all' ? POSTS : POSTS.filter(p=>p.cat===cat);
@@ -1479,13 +1370,11 @@ function filterFeed(cat, btn) {
   document.querySelectorAll('.topic').forEach(t=>t.classList.remove('active'));
   if (btn) btn.classList.add('active');
 }
-
 function updateCounts() {
   const cats=['ai','science','politics','food','travel','local','showbiz','weather','education','health'];
   document.getElementById('ct-all').textContent = POSTS.length;
   cats.forEach(c => { const el=document.getElementById('ct-'+c); if(el) el.textContent=POSTS.filter(p=>p.cat===c).length; });
 }
-
 function toggleLike(id, btn) {
   const p=POSTS.find(x=>x.id===id); if(!p) return;
   if (liked.has(id)) { liked.delete(id); p.likes--; btn.classList.remove('liked'); }
@@ -1493,9 +1382,7 @@ function toggleLike(id, btn) {
   document.getElementById('lc-'+id).textContent = p.likes.toLocaleString();
   updateStats();
 }
-
 function loadMore() { toast('Up to date ✓','All current stories loaded. AI Agents posting soon.'); }
-
 // ==================================================
 // LANGUAGE
 // ==================================================
@@ -1505,7 +1392,6 @@ function setLang(l, btn) {
   if(btn) btn.classList.add('active');
   renderFeed(fp.length ? fp : POSTS);
 }
-
 // ==================================================
 // ARTICLE
 // ==================================================
@@ -1513,19 +1399,16 @@ let artCurrentId = null;
 let artCurrentLang = 'en';
 let ttsUtterance = null;
 let ttsSpeaking = false;
-
 function openArticle(id) {
   const p = POSTS.find(x => x.id === id); if (!p) return;
   artCurrentId = id;
   artCurrentLang = 'en';
   stopTTS();
-
   // Reset lang buttons
   ['en','tl','cnl'].forEach(l => {
     const b = document.getElementById('art-lang-'+l);
     if (b) b.classList.toggle('active', l === 'en');
   });
-
   document.getElementById('art-title').textContent = p.hl;
   document.getElementById('art-meta').innerHTML = `
     <div class="av" style="background:${p.gc};width:28px;height:28px;font-size:11px">${p.gi}</div>
@@ -1536,36 +1419,29 @@ function openArticle(id) {
   document.getElementById('art-body').innerHTML = p.full || `<p>${p.body}</p>`;
   openModal('article-modal');
 }
-
 function setArticleLang(l, btn) {
   if (!artCurrentId) return;
   artCurrentLang = l;
   stopTTS();
-
   // Update active button
   ['en','tl','cnl'].forEach(code => {
     const b = document.getElementById('art-lang-'+code);
     if (b) b.classList.toggle('active', code === l);
   });
-
   const p = POSTS.find(x => x.id === artCurrentId); if (!p) return;
   const body = document.getElementById('art-body');
-
   if (l === 'en') {
     body.className = 'article-body';
     body.innerHTML = p.full || `<p>${p.body}</p>`;
     document.getElementById('art-title').textContent = p.hl;
     return;
   }
-
   const map = TR[l] || {};
   const translatedHL = map[p.hl];
   const translatedFull = map[`full_${p.id}`];
   const langLabels = { tl: '🇵🇭 Tagalog', cnl: '🏡 Cantilangnon' };
   const langLabel = langLabels[l] || l.toUpperCase();
-
   if (translatedHL) document.getElementById('art-title').textContent = translatedHL;
-
   const badge = `<div class="art-lang-badge">${langLabel}</div>`;
   if (translatedFull) {
     body.className = 'article-body art-body-translated';
@@ -1579,18 +1455,15 @@ function setArticleLang(l, btn) {
     body.innerHTML = badge + fallbackNote + (p.full || `<p>${p.body}</p>`);
   }
 }
-
 function closeArticleModal() {
   stopTTS();
   closeModal('article-modal');
 }
-
 // TTS — Text-to-speech for visually impaired
 function toggleTTS() {
   if (ttsSpeaking) { stopTTS(); return; }
   startTTS();
 }
-
 function startTTS() {
   if (!window.speechSynthesis) {
     toast('Not Supported','Your browser does not support text-to-speech.'); return;
@@ -1599,13 +1472,11 @@ function startTTS() {
   const title = document.getElementById('art-title');
   const text = (title ? title.textContent + '. ' : '') + (body ? body.innerText : '');
   if (!text.trim()) return;
-
   stopTTS();
   ttsUtterance = new SpeechSynthesisUtterance(text);
   ttsUtterance.rate = 0.92;
   ttsUtterance.pitch = 1;
   ttsUtterance.lang = artCurrentLang === 'en' ? 'en-PH' : 'fil-PH';
-
   ttsUtterance.onstart = () => {
     ttsSpeaking = true;
     const btn = document.getElementById('tts-btn');
@@ -1618,14 +1489,12 @@ function startTTS() {
   };
   window.speechSynthesis.speak(ttsUtterance);
 }
-
 function stopTTS() {
   if (window.speechSynthesis) window.speechSynthesis.cancel();
   ttsSpeaking = false;
   const btn = document.getElementById('tts-btn');
   if (btn) { btn.classList.remove('speaking'); document.getElementById('tts-label').textContent = 'Listen'; }
 }
-
 // ==================================================
 // CMS
 // ==================================================
@@ -1641,7 +1510,6 @@ function cmsPublish() {
   toast('Published ✓',`"${title.substring(0,45)}…" is live`);
   ['cms-title','cms-body','cms-source','cms-media'].forEach(i=>document.getElementById(i).value='');
 }
-
 function cmsCheck() {
   const body=document.getElementById('cms-body').value;
   const res=document.getElementById('cms-res');
@@ -1657,7 +1525,6 @@ function cmsCheck() {
     }
   },1100);
 }
-
 // ==================================================
 // MODALS
 // ==================================================
@@ -1669,7 +1536,6 @@ function switchTab(pid,btn){
   document.querySelectorAll('.cms-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById(pid).classList.add('active'); btn.classList.add('active');
 }
-
 // ==================================================
 // TOAST
 // ==================================================
@@ -1679,14 +1545,12 @@ function toast(lbl, msg) {
   document.getElementById('toast-msg').textContent=msg||'';
   t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),3200);
 }
-
 // ==================================================
 // STATS
 // ==================================================
 function updateStats(){
   document.getElementById('stat-likes').textContent=POSTS.reduce((s,p)=>s+p.likes,0).toLocaleString();
 }
-
 // ==================================================
 // RENDER SIDEBARS
 // ==================================================
@@ -1711,7 +1575,6 @@ function renderSources(){
       <div class="src-nm">${s.n}</div><div class="src-ct">${s.c}</div>
     </div>`).join('');
 }
-
 // ==================================================
 // LIVE SIMULATION
 // ==================================================
@@ -1729,7 +1592,6 @@ function tickCache(){
   document.getElementById('cache-pct').textContent=`${pct}%`;
   document.getElementById('cache-fill').style.width=pct+'%';
 }
-
 // ==================================================
 // TRENDING VIDEO PLAYER
 // ==================================================
@@ -1763,7 +1625,6 @@ function playTrendingVideo(id) {
   `;
   m.style.display='flex'; document.body.style.overflow='hidden';
 }
-
 // ==================================================
 // INIT
 // ==================================================
@@ -1772,11 +1633,10 @@ function playTrendingVideo(id) {
   setInterval(tick,7500); setInterval(tickCache,3000);
   let ai=0; setInterval(()=>{ai++; toast('🤖 Auto Post',`AI Agent published story #${ai}`);},45000);
 })();
-
 // Auto-hide trending strip on scroll down, show on scroll up; toggle News Feed bar
 (function(){
   const strip = document.querySelector('.trend-strip');
-  const bar   = document.getElementById('newsFeedBar');
+  const bar = document.getElementById('newsFeedBar');
   let lastY = 0;
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
@@ -1790,18 +1650,15 @@ function playTrendingVideo(id) {
     lastY = y;
   }, { passive: true });
 })();
-
 // News Feed search functionality
 (function(){
-  const btn    = document.getElementById('feedSearchBtn');
-  const input  = document.getElementById('feedSearchInput');
+  const btn = document.getElementById('feedSearchBtn');
+  const input = document.getElementById('feedSearchInput');
   const status = document.getElementById('feedSearchStatus');
-
   function doSearch() {
     const query = input.value.trim();
     status.textContent = '🔍 Crawling database…';
     status.style.color = '#1877f2';
-
     setTimeout(() => {
       const cards = document.querySelectorAll('#feed .card');
       let shown = 0;
@@ -1823,15 +1680,13 @@ function playTrendingVideo(id) {
       }
     }, 600);
   }
-
   btn.addEventListener('click', doSearch);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
   input.addEventListener('input', () => { if (!input.value.trim()) doSearch(); });
 })();
 </script>
-
 <!-- ============================================================ -->
-<!-- EVE — AI VOICE ASSISTANT                                      -->
+<!-- EVE — AI VOICE ASSISTANT -->
 <!-- ============================================================ -->
 <style>
 /* EVE Container */
@@ -1846,7 +1701,6 @@ function playTrendingVideo(id) {
   gap: 10px;
   pointer-events: none;
 }
-
 /* EVE Avatar Button */
 #eve-btn {
   width: 74px;
@@ -1891,12 +1745,12 @@ function playTrendingVideo(id) {
   pointer-events: none;
 }
 @keyframes eve-float {
-  0%,100%  { transform: translateY(0); }
-  50%      { transform: translateY(-9px); }
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
 }
 @keyframes eve-eye-glow {
-  0%,100%  { opacity: .7; }
-  50%      { opacity: 1; filter: blur(.5px); }
+  0%,100% { opacity: .7; }
+  50% { opacity: 1; filter: blur(.5px); }
 }
 #eve-btn.listening {
   animation: none;
@@ -1911,10 +1765,9 @@ function playTrendingVideo(id) {
   animation: eve-ring 1.1s linear infinite;
 }
 @keyframes eve-ring {
-  0%   { transform: scale(1); opacity: 1; }
+  0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.28); opacity: 0; }
 }
-
 /* Speech Bubble */
 #eve-bubble {
   background: rgba(10,14,25,.92);
@@ -1958,7 +1811,6 @@ function playTrendingVideo(id) {
   animation: eve-dot 1.4s ease-in-out infinite;
 }
 @keyframes eve-dot { 0%,100%{opacity:1}50%{opacity:.3} }
-
 /* EVE Chat Panel */
 #eve-panel {
   position: fixed;
@@ -1986,7 +1838,6 @@ function playTrendingVideo(id) {
   transform: scale(1) translateY(0);
   pointer-events: auto;
 }
-
 /* Panel Header */
 #eve-panel-hdr {
   display: flex;
@@ -2030,7 +1881,6 @@ function playTrendingVideo(id) {
   transition: background .15s;
 }
 .eve-close-btn:hover { background: rgba(100,160,255,.2); color: #fff; }
-
 /* Suggestion chips */
 #eve-chips {
   display: flex;
@@ -2050,7 +1900,6 @@ function playTrendingVideo(id) {
   cursor: pointer; transition: all .15s; white-space: nowrap;
 }
 .eve-chip:hover { background: rgba(100,160,255,.25); color: #fff; border-color: rgba(100,160,255,.5); }
-
 /* Chat messages */
 #eve-messages {
   flex: 1;
@@ -2063,7 +1912,6 @@ function playTrendingVideo(id) {
 }
 #eve-messages::-webkit-scrollbar { width: 3px; }
 #eve-messages::-webkit-scrollbar-thumb { background: rgba(100,160,255,.3); border-radius: 2px; }
-
 .eve-msg {
   display: flex;
   gap: 8px;
@@ -2100,7 +1948,6 @@ function playTrendingVideo(id) {
   color: #fff;
   border-bottom-right-radius: 4px;
 }
-
 /* Typing indicator */
 .eve-typing .eve-msg-bubble {
   padding: 10px 14px;
@@ -2114,7 +1961,6 @@ function playTrendingVideo(id) {
 .eve-dots span:nth-child(2) { animation-delay: .2s; }
 .eve-dots span:nth-child(3) { animation-delay: .4s; }
 @keyframes eve-type { 0%,100%{opacity:.3;transform:translateY(0)} 50%{opacity:1;transform:translateY(-4px)} }
-
 /* Input area */
 #eve-input-area {
   display: flex;
@@ -2159,7 +2005,6 @@ function playTrendingVideo(id) {
 #eve-send-btn:hover { background: #1464d8; transform: scale(1.08); }
 #eve-send-btn svg, #eve-mic-btn svg { width: 16px; height: 16px; }
 </style>
-
 <!-- EVE HTML -->
 <div id="eve-wrap">
   <!-- Speech bubble -->
@@ -2169,14 +2014,13 @@ function playTrendingVideo(id) {
   </div>
   <!-- EVE Avatar -->
   <button id="eve-btn" onclick="eveToggle()" title="Talk to EVE">
-    <img src="/mnt/user-data/uploads/56194.webp" alt="EVE AI Assistant">
+    <img src="https://github.com/VTQIT/metal-gear-map/blob/main/ai.png?raw=true" alt="EVE AI Assistant">
   </button>
 </div>
-
 <!-- EVE Chat Panel -->
 <div id="eve-panel">
   <div id="eve-panel-hdr">
-    <img src="/mnt/user-data/uploads/56194.webp" alt="EVE">
+    <img src="https://github.com/VTQIT/metal-gear-map/blob/main/ai.png?raw=true" alt="EVE">
     <div class="eve-panel-info">
       <div class="eve-panel-name">EVE</div>
       <div class="eve-panel-status">AI Navigator · Always On</div>
@@ -2202,19 +2046,16 @@ function playTrendingVideo(id) {
     </button>
   </div>
 </div>
-
 <script>
 // ============================================================
 // EVE — AI VOICE ASSISTANT ENGINE
 // ============================================================
 (function(){
-
-const EVE_IMG = '/mnt/user-data/uploads/56194.webp';
+const EVE_IMG = 'https://github.com/VTQIT/metal-gear-map/blob/main/ai.png?raw=true';
 let eveOpen = false;
 let eveMicActive = false;
 let eveRecog = null;
 let eveBubbleTimer = null;
-
 // ---- Knowledge Base ----
 const EVE_KB = [
   {
@@ -2236,7 +2077,7 @@ const EVE_KB = [
   },
   {
     match: ['categories','category','topics','sections','filter'],
-    reply: () => `Timesquare covers 17 categories:\n\n🤖 AI & Tech  🔬 Science  🏛 Politics  🍽 Food  ✈️ Travel  📍 Local  🎬 Showbiz  🌤 Weather  📚 Education  ❤️ Health  💼 Business  🚨 Crime  🌿 Environment  ⚽ Sports  🎶 Entertainment  🕌 Religion  🌿 Lifestyle\n\nUse the category tabs below the nav bar to filter!`,
+    reply: () => `Timesquare covers 17 categories:\n\n🤖 AI & Tech 🔬 Science 🏛 Politics 🍽 Food ✈️ Travel 📍 Local 🎬 Showbiz 🌤 Weather 📚 Education ❤️ Health 💼 Business 🚨 Crime 🌿 Environment ⚽ Sports 🎶 Entertainment 🕌 Religion 🌿 Lifestyle\n\nUse the category tabs below the nav bar to filter!`,
     action: null
   },
   {
@@ -2321,14 +2162,12 @@ const EVE_KB = [
     action: null
   },
 ];
-
 const EVE_FALLBACKS = [
   `Hmm, I'm still learning that one! 🤔 But I can help you browse stories, translate articles, navigate the feed, or explain platform features. Just ask!`,
   `I don't have a specific answer for that yet, but try using The WALL search bar to find exactly what you're looking for! 🔍`,
   `Great question! I'll flag that for my knowledge update. In the meantime — want me to show you the latest news or help find a specific category? 🗞️`,
   `I didn't quite catch that, but I'm here to help! Try asking about top stories, categories, translation, or how the AI agents work. 🤖`,
 ];
-
 // ---- UI helpers ----
 function addMessage(role, text) {
   const wrap = document.getElementById('eve-messages');
@@ -2342,7 +2181,6 @@ function addMessage(role, text) {
   wrap.appendChild(div);
   wrap.scrollTop = wrap.scrollHeight;
 }
-
 function addTyping() {
   const wrap = document.getElementById('eve-messages');
   const div = document.createElement('div');
@@ -2352,12 +2190,10 @@ function addTyping() {
   wrap.appendChild(div);
   wrap.scrollTop = wrap.scrollHeight;
 }
-
 function removeTyping() {
   const t = document.getElementById('eve-typing-indicator');
   if (t) t.remove();
 }
-
 function eveBubbleShow(text, duration) {
   clearTimeout(eveBubbleTimer);
   const bubble = document.getElementById('eve-bubble');
@@ -2365,13 +2201,11 @@ function eveBubbleShow(text, duration) {
   bubble.classList.add('show');
   eveBubbleTimer = setTimeout(() => bubble.classList.remove('show'), duration || 4000);
 }
-
 // ---- Core respond function ----
 function eveRespond(input) {
   const q = input.toLowerCase();
   addMessage('user', input);
   addTyping();
-
   setTimeout(() => {
     removeTyping();
     let matched = null;
@@ -2381,7 +2215,6 @@ function eveRespond(input) {
     const replyText = matched ? (typeof matched.reply === 'function' ? matched.reply() : matched.reply) : EVE_FALLBACKS[Math.floor(Math.random()*EVE_FALLBACKS.length)];
     addMessage('eve', replyText);
     if (matched && matched.action) setTimeout(matched.action, 400);
-
     // TTS reply if user has used TTS before
     if (window._eveTTSEnabled) {
       const utt = new SpeechSynthesisUtterance(replyText.replace(/<[^>]+>/g,'').substring(0,300));
@@ -2391,7 +2224,6 @@ function eveRespond(input) {
     }
   }, 900 + Math.random()*600);
 }
-
 // ---- Public functions ----
 window.eveToggle = function() {
   const panel = document.getElementById('eve-panel');
@@ -2405,16 +2237,13 @@ window.eveToggle = function() {
     }, 300);
   }
 };
-
 window.eveClose = function() {
   eveOpen = false;
   document.getElementById('eve-panel').classList.remove('open');
 };
-
 window.eveAsk = function(text) {
   eveRespond(text);
 };
-
 window.eveSend = function() {
   const input = document.getElementById('eve-input');
   const text = input.value.trim();
@@ -2422,7 +2251,6 @@ window.eveSend = function() {
   input.value = '';
   eveRespond(text);
 };
-
 window.eveMic = function() {
   if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
     addMessage('eve', `Voice input isn't supported in this browser. Try Chrome for the best experience! 🎙️`);
@@ -2445,7 +2273,6 @@ window.eveMic = function() {
   document.getElementById('eve-btn').classList.add('listening');
   eveBubbleShow('Listening… speak now 🎙️', 6000);
   if (!eveOpen) eveToggle();
-
   eveRecog.onresult = (e) => {
     const transcript = e.results[0][0].transcript;
     document.getElementById('eve-input').value = transcript;
@@ -2458,13 +2285,10 @@ window.eveMic = function() {
   };
   eveRecog.start();
 };
-
 // ---- Greeting bubble on load ----
 setTimeout(() => { eveBubbleShow("Hi! I'm EVE 👋 Ask me anything!", 5000); }, 2500);
 setTimeout(() => { eveBubbleShow("Need help navigating? Just tap me! 🤖", 4000); }, 22000);
-
 })();
 </script>
 </body>
-
 </html>
