@@ -521,6 +521,8 @@ nav {
 }
 .media-wrap:hover .media-img { filter: brightness(1.06); transform: scale(1.015); }
 
+
+
 .card-src { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .src-badge {
   background: var(--surface2); border: 1px solid var(--border);
@@ -664,6 +666,64 @@ nav {
 }
 .modal-x:hover { background: var(--border); color: var(--text); }
 .modal-body { padding: 22px; }
+
+/* Article modal accessibility toolbar */
+.art-toolbar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 12px 22px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  border-radius: 0;
+  transition: background var(--speed), border-color var(--speed);
+}
+.art-toolbar-label {
+  font-family: var(--font); font-size: 11px; font-weight: 700;
+  color: var(--muted); text-transform: uppercase; letter-spacing: .6px;
+  margin-right: 2px;
+}
+.lang-toggle-group {
+  display: flex; gap: 4px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 22px; padding: 3px;
+  transition: background var(--speed), border-color var(--speed);
+}
+.lang-toggle-btn {
+  font-family: var(--font); font-size: 12px; font-weight: 600;
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); padding: 5px 13px; border-radius: 18px;
+  transition: all .18s; white-space: nowrap;
+}
+.lang-toggle-btn.active {
+  background: #1877f2; color: #fff;
+  box-shadow: 0 2px 8px rgba(24,119,242,.35);
+}
+.lang-toggle-btn:not(.active):hover { background: var(--surface2); color: var(--text); }
+
+/* TTS voice button */
+.tts-btn {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--font); font-size: 12px; font-weight: 600;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text); padding: 6px 14px; border-radius: 22px;
+  cursor: pointer; transition: all .18s; white-space: nowrap;
+}
+.tts-btn:hover { border-color: #1877f2; color: #1877f2; }
+.tts-btn.speaking { background: #1877f2; color: #fff; border-color: #1877f2; animation: tts-pulse 1.4s ease-in-out infinite; }
+.tts-btn svg { width: 15px; height: 15px; flex-shrink: 0; transition: fill .18s; }
+.tts-btn.speaking svg { fill: #fff; }
+@keyframes tts-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(24,119,242,.4)} 50%{box-shadow:0 0 0 6px rgba(24,119,242,0)} }
+
+/* translated article body highlight */
+.art-body-translated { animation: fade-in-body .3s ease; }
+@keyframes fade-in-body { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+.art-lang-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg,#1877f2,#4fa3ff);
+  color: #fff; font-family: var(--font); font-size: 11px; font-weight: 700;
+  padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+  letter-spacing: .3px;
+}
 
 /* CMS Tabs */
 .cms-tabs { display: flex; gap: 3px; margin-bottom: 20px; background: var(--surface2); padding: 4px; border-radius: 10px; transition: background var(--speed); }
@@ -815,7 +875,7 @@ nav {
 <!-- TRENDING PORTRAIT STRIP -->
 <!-- NEWS FEED BAR (visible when trending strip hides) -->
 <div class="news-feed-bar" id="newsFeedBar">
-  <div class="news-feed-bar-title">News Feed</div>
+  <div class="news-feed-bar-title">The WALL</div>
   <div class="feed-search-wrap">
     <input class="feed-search-input" id="feedSearchInput" type="text" placeholder="Search latest news…" />
     <button class="feed-search-btn" id="feedSearchBtn" title="Search news database">
@@ -1150,7 +1210,20 @@ nav {
   <div class="modal modal-sm">
     <div class="modal-hdr">
       <div class="modal-ttl" id="art-title" style="font-size:15px;line-height:1.4;max-width:90%;font-weight:700">Article</div>
-      <button class="modal-x" onclick="closeModal('article-modal')">✕</button>
+      <button class="modal-x" onclick="closeArticleModal()">✕</button>
+    </div>
+    <!-- Accessibility Toolbar -->
+    <div class="art-toolbar">
+      <span class="art-toolbar-label">🌐 Translate</span>
+      <div class="lang-toggle-group">
+        <button class="lang-toggle-btn active" id="art-lang-en" onclick="setArticleLang('en',this)">English</button>
+        <button class="lang-toggle-btn" id="art-lang-tl" onclick="setArticleLang('tl',this)">Tagalog</button>
+        <button class="lang-toggle-btn" id="art-lang-cnl" onclick="setArticleLang('cnl',this)">Cantilangnon</button>
+      </div>
+      <button class="tts-btn" id="tts-btn" onclick="toggleTTS()" title="Read article aloud">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <span id="tts-label">Listen</span>
+      </button>
     </div>
     <div class="modal-body">
       <div id="art-meta" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px"></div>
@@ -1183,6 +1256,7 @@ function toggleTheme() {
 // ==================================================
 const TR = {
   tl: {
+    // headlines
     "AI agents now autonomously managing 40% of global news curation": "Ang mga AI agents ay awtonomong namamahala na sa 40% ng pandaigdigang curation ng balita",
     "Scientists discover new quantum computing breakthrough that could revolutionize encryption": "Natuklasan ng mga siyentipiko ang bagong tagumpay sa quantum computing na maaaring magbago ng encryption",
     "Cantilan celebrates annual Surigaonon Cultural Festival": "Ipinagdiriwang ng Cantilan ang taunang Surigaonon Cultural Festival",
@@ -1190,7 +1264,20 @@ const TR = {
     "Filipino filmmaker wins top prize at Cannes Film Festival": "Nanalo ang Pilipinong filmmaker ng pinakamataas na parangal sa Cannes Film Festival",
     "New AI model translates 200 languages in real time": "Ang bagong AI model ay nagsasalin ng 200 wika nang real time",
     "Cantilan's native delicacies featured in national food guide": "Ang mga katutubong pagkain ng Cantilan ay itinampok sa pambansang gabay sa pagkain",
-    "DepEd rolls out AI-assisted learning nationwide, reaching remote Caraga schools": "Naglunsad ang DepEd ng AI-assisted learning sa buong bansa"
+    "DepEd rolls out AI-assisted learning nationwide, reaching remote Caraga schools": "Naglunsad ang DepEd ng AI-assisted learning sa buong bansa",
+    // full article bodies
+    "full_1": `<p>Ayon sa isang komprehensibong ulat ng industriya, isang makasaysayang tagumpay ang nakamit: ang mga AI agents ay awtonomong namamahala na ng humigit-kumulang 40% ng lahat ng digital news curation sa buong mundo — mula sa 8% lamang tatlong taon na ang nakaraan.</p><p>Patuloy na sinisiyasat ng mga sistemang ito ang libu-libong pinagkakatiwalaang pahayagan, nagbubuod, nagbe-beri-pika, at nagla-lunch ng balita sa loob ng ilang segundo pagkatapos ng isang pangyayari.</p><p>Ang Timesquare ay isa sa mga nangunguna sa paggamit ng teknolohiyang ito sa lokal na antas, na nagdadala ng 24/7 na balita sa Surigao del Sur at sa rehiyon ng Caraga.</p>`,
+    "full_2": `<p>Magkasamang inihayag ng MIT at Caltech ang isang quantum processor na natutugunan ang mga problema sa RSA-2048 encryption nang 47 beses na mas mabilis kaysa sa anumang nakaraang sistema, gamit ang nobelang "topological qubit stabilization."</p><p>Saklaw ng mga implikasyon ang pagbabangko, komunikasyon ng pamahalaan, at proteksyon ng pribadong datos. Ang mga ahensya ng seguridad ay nagtitipon ng mga emergency review panels sa buong mundo.</p><p>"Ito ang sandaling pinaghandaan ng komunidad ng kriptograpiya," ayon kay Dr. Yuki Tanaka ng Caltech.</p>`,
+    "full_3": `<p>Naging makulay ang Cantilan nang ang taunang Surigaonon Cultural Festival ay dumating at nagtipon ng libu-libong bisita mula sa buong rehiyon ng Caraga.</p><p>Kasama sa mga highlight ang Kahimunan dance competition na may 30+ tribo, isang native food fair, at isang crafts market na nagtatampok ng hand-woven baskets, tela ng malong, at mga katutubong instrumento.</p><p>Mayor Domingo Reyes: "Ang pagdiriwangang ito ay nagpapaalala sa atin kung sino tayo — isang bayan ng malakas na kultura, malalim na ugat, at mas malalim pang pagmamahal sa ating komunidad."</p>`,
+    "full_4": `<p>Itinataas ng PAGASA ang Tropical Cyclone Wind Signal No. 1 sa Eastern Samar, Surigao del Norte, at mga bahagi ng Surigao del Sur habang pinalalakas ng Bagyong Mawar sa Philippine Sea na may sustained winds na 120 km/h.</p><p>Sinusubaybayan ng PAGASA ang isang northwest trajectory na maaaring magdala ng outer bands sa Caraga sa loob ng 48 oras. Inaatasan ang mga residente sa baybayin na kumpletuhin ang mga emergency na paghahanda at makiugnayan sa lokal na DRRM offices.</p>`,
+    "full_5": `<p>Naging kasaysayan si Director Lani Reyes sa pagkapanalo ng Palme d'Or sa ika-78 na Cannes Film Festival. Ang kanyang pelikula na "Dagat ng Alaala" ay buo na kinunan sa Surigao del Norte at Eastern Samar.</p><p>"Ito ay para sa bawat Pilipinong kwento na hindi pa nasasabi," sabi ni Reyes sa entablado. "Para sa Mindanao. Para sa Caraga. Para sa ating mga nanay at lola."</p>`,
+    "full_6": `<p>Inilabas ng Google DeepMind ang Gemini Translate Ultra, na nakamit ang real-time bidirectional translation sa 200 na wika kabilang ang Surigaonon, Maranao, Kapampangan, at Hiligaynon.</p><p>Ang mga platform tulad ng Timesquare ay maaari na ngayong awtomatikong magsalin ng nilalaman sa mga lokal na diyalekto agad-agad. "Ang wika ay hindi dapat hadlang sa impormasyon," sabi ng isang kinatawan ng DeepMind.</p>`,
+    "full_7": `<p>Opisyal na isinama ng Department of Tourism ang Cantilan, Surigao del Sur sa ina-update na Philippine Culinary Heritage Guide. Kasama sa mga tampok na pagkain ang Cantilangnon tinola, sariwang bangus at lapu-lapu mula sa Lanuza Bay, puso (hanging rice), at katutubong kakanin na ginagawa gamit ang tradisyonal na pamamaraan ng Surigaonon.</p><p>"Ang aming pagkain ay ang aming pagkakakilanlan," sabi ng lokal na chef na si Maricris Tabilas. "Ang bawat putahe ay nagkukuwento ng aming lupa, karagatan, at bayan."</p>`,
+    "full_8": `<p>Ang AI-Assisted Learning initiative ng DepEd ay na-deploy na sa mahigit 2,400 pampublikong paaralan sa buong bansa — kabilang ang 87 malalayong paaralan sa Caraga. Ang mga adaptive AI tutors ay nag-aadjust ng difficulty ng aralin nang real-time at gumagana nang offline para sa mga paaralan na may mababang koneksyon.</p><p>"Sa unang pagkakataon, ang isang estudyante sa isang silid-aralan sa bundok ay may access na sa parehong kalidad ng turo tulad ng isang estudyante sa Maynila," sabi ni DepEd Secretary Sara Duterte-Carpio.</p>`,
+    "full_9": `<p>Gumawa ng kasaysayan ang Philippine Azkals sa pag-overthrow sa Japan 2-1 sa AFC Asian Cup quarter-finals. Ang mga gol nina Miguel Villanueva at Daisuke Sato (OG) ang nagwagi sa harap ng nagbentang kumpletong pulungan sa Doha.</p><p>Tinawag ng Coach Scott Cooper ito bilang "ang pinakadakilang resulta sa kasaysayan ng football ng Pilipinas." Ngayon ay haharapin ng koponan ang South Korea sa semi-finals sa Sabado.</p>`,
+    "full_10": `<p>Nagsara ang PSEi sa makasaysayang 8,947.34 puntos na hinimok ng ₱187 bilyon na foreign direct investment inflows. Ang mga sektor na nangunguna sa pagtaas ay kinabibilangan ng teknolohiya, imprastraktura, at renewable energy.</p><p>Sinabi ng BSP Governor Felipe Medalla, "Ang Pilipinas ay nagiging paboritong destinasyon ng regional capital — malakas ang ating mga pundasyon, at ang ating demograpiko ay kabilang sa pinakamahusay sa Asya."</p>`,
+    "full_11": `<p>Opisyal na inilunsad ang Surigao del Sur Coral Restoration Initiative na sumasaklaw sa 47 km ng baybayin mula Cantilan hanggang Lanuza Bay. Gagamit ang mga siyentipiko ng kombinasyon ng coral gardening, artificial reef structures, at AI-assisted monitoring.</p><p>"Ibinabalik natin ang kinuha ng mga dekada ng ilegal na pangingisda," sabi ni DENR Regional Director Analiza Teh. "Ito ay para sa susunod na henerasyon."</p>`,
+    "full_12": `<p>Ang Mindanao ay umuusbong bilang pangunahing eco-wellness destination ng Southeast Asia. Ang mga booking sa forest retreats, river camps, at indigenous healing centers ay tumaas ng 230% year-on-year, na humihigit sa Palawan at Cebu.</p><p>Kasama sa mga natatanging karanasan ang Bukidnon forest bathing trails, ang Agusan Marsh kayak meditations, at tradisyonal na Manobo healing ceremonies sa Surigao highlands.</p>`,
   },
   ceb: {
     "AI agents now autonomously managing 40% of global news curation": "Ang mga AI agents karon nagdumala na sa 40% sa tibuok kalibutanong curation sa balita",
@@ -1200,9 +1287,10 @@ const TR = {
     "Filipino filmmaker wins top prize at Cannes Film Festival": "Nagdaog ang Pilipinong filmmaker sa pinakataas nga premyo sa Cannes Film Festival",
     "New AI model translates 200 languages in real time": "Ang bag-ong AI model naghubad sa 200 ka pinulongan sa real time",
     "Cantilan's native delicacies featured in national food guide": "Ang lumad nga pagkaon sa Cantilan gitagaan og lugar sa food guide",
-    "DepEd rolls out AI-assisted learning nationwide, reaching remote Caraga schools": "Gilunsad sa DepEd ang AI-assisted learning sa tibuok nasud"
+    "DepEd rolls out AI-assisted learning nationwide, reaching remote Caraga schools": "Gilunsad sa DepEd ang AI-assisted learning sa tibuok nasud",
   },
   cnl: {
+    // headlines
     "AI agents now autonomously managing 40% of global news curation": "Ang mga AI agents karon awtonomusly nagmamando sa 40% sang pang-kalibutanon nga curation sang balita",
     "Scientists discover new quantum computing breakthrough that could revolutionize encryption": "Nadiskubri sang mga syentipiko ang bag-o nga quantum computing breakthrough",
     "Cantilan celebrates annual Surigaonon Cultural Festival": "Gineserubisyunan sang Cantilan ang tinuig nga Surigaonon Cultural Festival",
@@ -1210,7 +1298,20 @@ const TR = {
     "Filipino filmmaker wins top prize at Cannes Film Festival": "Nagdaog ang Pilipinhong filmmaker sa pinaka-mataas nga premyo sa Cannes",
     "New AI model translates 200 languages in real time": "Ang bag-o nga AI model nagtaslak sang 200 ka lengguahe sa real time",
     "Cantilan's native delicacies featured in national food guide": "Ang katutubong pagkaon sang Cantilan ginhisgutan sa pambansang food guide",
-    "DepEd rolls out AI-assisted learning nationwide, reaching remote Caraga schools": "Ginlunsad sang DepEd ang AI-assisted learning sa bug-os nga nasyon"
+    "DepEd rolls out AI-assisted learning nationwide, reaching remote Caraga schools": "Ginlunsad sang DepEd ang AI-assisted learning sa bug-os nga nasyon",
+    // full article bodies
+    "full_1": `<p>Suno sa isa ka komprehensibo nga taho sang industriya, isa ka makasaysayan nga tagumpay ang nakab-ot: ang mga AI agents ara na sa awtonomus nga pagdumala sang mga 40% sang tanan nga digital news curation sa bug-os nga kalibutan — halin sa 8% lamang tatlo ka tuig ang naglabay.</p><p>Padayon nga ginsosiyasat sang mga sistema ang libo-libo nga ginasaligan nga baluartigo, nagabuod, nagaverify, kag nagapublikar sang balita sulod sang pila ka segundo pagkatapos nga mahanabo ang usa ka panghitabo.</p><p>Ang Timesquare isa sa mga nanguna sa paggamit sang teknolohiya nga ini sa lokal, nagadala sang 24/7 nga balita sa Surigao del Sur kag sa rehiyon sang Caraga.</p>`,
+    "full_2": `<p>Ginbunyag sang MIT kag Caltech ang isa ka quantum processor nga nagatubag sang mga problema sa RSA-2048 encryption sing 47 ka beses nga mas mabilis kaysa sa bisan anong nauna nga sistema, gamit ang bag-o nga "topological qubit stabilization."</p><p>Ang mga implikasyon nagalapaw sa pagbabangko, komunikasyon sang gobyerno, kag proteksyon sang pribadong datos. Ang mga ahensya sang seguridad nagatipon sang emergency review panels sa bug-os nga kalibutan.</p><p>"Ini ang sandali nga ginpangandam sang komunidad sang kriptograpiya," siling ni Dr. Yuki Tanaka sang Caltech.</p>`,
+    "full_3": `<p>Naging makulay ang Cantilan sang ang tinuig nga Surigaonon Cultural Festival nag-abot kag nagtipon sang libo-libo nga bisita halin sa bug-os nga rehiyon sang Caraga.</p><p>Kabilang sa mga highlight ang Kahimunan dance competition nga may 30+ ka tribo, isa ka native food fair, kag isa ka crafts market nga nagasenyas sang hand-woven baskets, tela sang malong, kag mga katutubong instrumento.</p><p>Mayor Domingo Reyes: "Ang selebrasyon nga ini nagapaalala sa aton kon sin-o kita — isa ka katawhan sang mabakod nga kultura, malalum nga gamot, kag mas malalum pa nga gugma sa aton komunidad."</p>`,
+    "full_4": `<p>Ginbangon sang PAGASA ang Tropical Cyclone Wind Signal No. 1 sa Eastern Samar, Surigao del Norte, kag mga bahin sang Surigao del Sur samtang nagpuwersa ang Bagyo Mawar sa Philippine Sea nga may sustained winds nga 120 km/h.</p><p>Ginasubay sang PAGASA ang isa ka northwest trajectory nga pwede magdala sang outer bands sa Caraga sulod sang 48 oras. Ginagahum ang mga residente sa baybayon nga kumpleto ang mga emergency nga paghanda kag makipag-ugnay sa lokal nga DRRM offices.</p>`,
+    "full_5": `<p>Nagkasaysayan si Director Lani Reyes sa pagkapanalo sang Palme d'Or sa ika-78 nga Cannes Film Festival. Ang iya pelikula nga "Dagat ng Alaala" ginkuha nang buo sa Surigao del Norte kag Eastern Samar.</p><p>"Ini para sa tagsa ka Pilipinhong istorya nga wala pa nasugid," siling ni Reyes sa entablado. "Para sa Mindanao. Para sa Caraga. Para sa aton mga nanay kag lola."</p>`,
+    "full_6": `<p>Ginpagwa sang Google DeepMind ang Gemini Translate Ultra, nakab-ot ang real-time bidirectional translation sa 200 ka lengguahe lakip ang Surigaonon, Maranao, Kapampangan, kag Hiligaynon.</p><p>Ang mga platform pareho sang Timesquare pwede na karon awtomatiko nga magtaslak sang sulod sa mga lokal nga diyalekto dayon gid. "Ang lengguahe indi dapat hadlang sa impormasyon," siling sang isa ka kinatawan sang DeepMind.</p>`,
+    "full_7": `<p>Opisyal nga ginsaksak sang Department of Tourism ang Cantilan, Surigao del Sur sa gin-update nga Philippine Culinary Heritage Guide. Kabilang sa mga ginpakita nga pagkaon ang Cantilangnon tinola, sariwa nga bangus kag lapu-lapu halin sa Lanuza Bay, puso (hanging rice), kag katutubong kakanin nga ginaluto gamit ang tradisyonal nga pamaagi sang Surigaonon.</p><p>"Ang amon pagkaon amo ang amon pagkakilala," siling sang lokal nga chef nga si Maricris Tabilas. "Ang tagsa ka putahe may istorya parte sa amon duta, dagat, kag katawhan."</p>`,
+    "full_8": `<p>Ang AI-Assisted Learning initiative sang DepEd na-deploy na sa labaw sa 2,400 ka pampublikong eskwelahan sa bug-os nga nasyon — kabilang ang 87 ka malalayo nga eskwelahan sa Caraga. Ang mga adaptive AI tutors naga-adjust sang kahirapan sang aralin sa real-time kag nagapungko nang offline para sa mga eskwelahan nga may maubos nga koneksyon.</p><p>"Sa una nga beses, ang isa ka estudyante sa isa ka silid-aralan sa bukid may access na sa pareho nga kalidad sang pagtuon pareho sang isa ka estudyante sa Manila," siling ni DepEd Secretary Sara Duterte-Carpio.</p>`,
+    "full_9": `<p>Nagkasaysayan ang Philippine Azkals sa pag-overthrow sa Japan 2-1 sa AFC Asian Cup quarter-finals. Ang mga gol nila Miguel Villanueva kag Daisuke Sato (OG) ang nagdaog sa atubangan sang puno nga kumpol sa Doha.</p><p>Gintawag ni Coach Scott Cooper ini nga "ang pinakadakilang resulta sa kasaysayan sang football sang Pilipinas." Karon ang koponan mag-aatubang sa South Korea sa semi-finals sa Sabado.</p>`,
+    "full_10": `<p>Nagsara ang PSEi sa makasaysayan nga 8,947.34 ka puntos nga ginpalihok sang ₱187 bilyon nga foreign direct investment inflows. Ang mga sektor nga nanguna sa pagtaas naglakip sang teknolohiya, imprastraktura, kag renewable energy.</p><p>Siling sang BSP Governor Felipe Medalla, "Ang Pilipinas nagiging paborito nga destinasyon sang regional capital — mabakod ang aton mga pundasyon, kag ang aton demograpiya kabilang sa pinakamayad sa Asya."</p>`,
+    "full_11": `<p>Opisyal nga ginlunsad ang Surigao del Sur Coral Restoration Initiative nga nagasakup sang 47 km sang baybayon halin Cantilan tubtob Lanuza Bay. Gamiton sang mga siyentipiko ang kombinasyon sang coral gardening, artificial reef structures, kag AI-assisted monitoring.</p><p>"Ginabalik naton ang kinuha sang mga dekada sang ilegal nga pangisda," siling ni DENR Regional Director Analiza Teh. "Ini para sa sunod nga henerasyon."</p>`,
+    "full_12": `<p>Ang Mindanao nagausbong bilang punoan nga eco-wellness destination sang Southeast Asia. Ang mga booking sa forest retreats, river camps, kag indigenous healing centers nagtaas sang 230% year-on-year, nagalapaw sa Palawan kag Cebu.</p><p>Kabilang sa mga natatangi nga karanasan ang Bukidnon forest bathing trails, ang Agusan Marsh kayak meditations, kag tradisyonal nga Manobo healing ceremonies sa Surigao highlands.</p>`,
   }
 };
 
@@ -1408,17 +1509,121 @@ function setLang(l, btn) {
 // ==================================================
 // ARTICLE
 // ==================================================
+let artCurrentId = null;
+let artCurrentLang = 'en';
+let ttsUtterance = null;
+let ttsSpeaking = false;
+
 function openArticle(id) {
-  const p=POSTS.find(x=>x.id===id); if(!p) return;
-  document.getElementById('art-title').textContent=p.hl;
-  document.getElementById('art-meta').innerHTML=`
+  const p = POSTS.find(x => x.id === id); if (!p) return;
+  artCurrentId = id;
+  artCurrentLang = 'en';
+  stopTTS();
+
+  // Reset lang buttons
+  ['en','tl','cnl'].forEach(l => {
+    const b = document.getElementById('art-lang-'+l);
+    if (b) b.classList.toggle('active', l === 'en');
+  });
+
+  document.getElementById('art-title').textContent = p.hl;
+  document.getElementById('art-meta').innerHTML = `
     <div class="av" style="background:${p.gc};width:28px;height:28px;font-size:11px">${p.gi}</div>
     <div style="font-size:12px;color:var(--muted)">${p.agent} · ${p.time}</div>
     <div class="card-tag">${p.tag}</div>
     <div class="src-badge">${p.src}</div>`;
-  document.getElementById('art-img').innerHTML=p.img ? `<img src="${p.img}" style="width:100%;border-radius:8px;max-height:260px;object-fit:cover" loading="lazy">` : '';
-  document.getElementById('art-body').innerHTML=p.full||`<p>${p.body}</p>`;
+  document.getElementById('art-img').innerHTML = p.img ? `<img src="${p.img}" style="width:100%;border-radius:8px;max-height:260px;object-fit:cover" loading="lazy">` : '';
+  document.getElementById('art-body').innerHTML = p.full || `<p>${p.body}</p>`;
   openModal('article-modal');
+}
+
+function setArticleLang(l, btn) {
+  if (!artCurrentId) return;
+  artCurrentLang = l;
+  stopTTS();
+
+  // Update active button
+  ['en','tl','cnl'].forEach(code => {
+    const b = document.getElementById('art-lang-'+code);
+    if (b) b.classList.toggle('active', code === l);
+  });
+
+  const p = POSTS.find(x => x.id === artCurrentId); if (!p) return;
+  const body = document.getElementById('art-body');
+
+  if (l === 'en') {
+    body.className = 'article-body';
+    body.innerHTML = p.full || `<p>${p.body}</p>`;
+    document.getElementById('art-title').textContent = p.hl;
+    return;
+  }
+
+  const map = TR[l] || {};
+  const translatedHL = map[p.hl];
+  const translatedFull = map[`full_${p.id}`];
+  const langLabels = { tl: '🇵🇭 Tagalog', cnl: '🏡 Cantilangnon' };
+  const langLabel = langLabels[l] || l.toUpperCase();
+
+  if (translatedHL) document.getElementById('art-title').textContent = translatedHL;
+
+  const badge = `<div class="art-lang-badge">${langLabel}</div>`;
+  if (translatedFull) {
+    body.className = 'article-body art-body-translated';
+    body.innerHTML = badge + translatedFull;
+  } else {
+    // Fallback: show headline translation + note
+    const fallbackNote = l === 'tl'
+      ? `<p style="color:var(--muted);font-style:italic;font-size:13px">Ang buong salin ng artikulong ito ay kasalukuyang pinoproseso ng aming mga AI agents. Pakitingnan muli sa ilang sandali.</p>`
+      : `<p style="color:var(--muted);font-style:italic;font-size:13px">Ang bug-os nga paghubad sang artikulo nga ini ginaproseso pa sang aton mga AI agents. Palihug balik-balik sa isa ka rato.</p>`;
+    body.className = 'article-body art-body-translated';
+    body.innerHTML = badge + fallbackNote + (p.full || `<p>${p.body}</p>`);
+  }
+}
+
+function closeArticleModal() {
+  stopTTS();
+  closeModal('article-modal');
+}
+
+// TTS — Text-to-speech for visually impaired
+function toggleTTS() {
+  if (ttsSpeaking) { stopTTS(); return; }
+  startTTS();
+}
+
+function startTTS() {
+  if (!window.speechSynthesis) {
+    toast('Not Supported','Your browser does not support text-to-speech.'); return;
+  }
+  const body = document.getElementById('art-body');
+  const title = document.getElementById('art-title');
+  const text = (title ? title.textContent + '. ' : '') + (body ? body.innerText : '');
+  if (!text.trim()) return;
+
+  stopTTS();
+  ttsUtterance = new SpeechSynthesisUtterance(text);
+  ttsUtterance.rate = 0.92;
+  ttsUtterance.pitch = 1;
+  ttsUtterance.lang = artCurrentLang === 'en' ? 'en-PH' : 'fil-PH';
+
+  ttsUtterance.onstart = () => {
+    ttsSpeaking = true;
+    const btn = document.getElementById('tts-btn');
+    if (btn) { btn.classList.add('speaking'); document.getElementById('tts-label').textContent = 'Stop'; }
+  };
+  ttsUtterance.onend = ttsUtterance.onerror = () => {
+    ttsSpeaking = false;
+    const btn = document.getElementById('tts-btn');
+    if (btn) { btn.classList.remove('speaking'); document.getElementById('tts-label').textContent = 'Listen'; }
+  };
+  window.speechSynthesis.speak(ttsUtterance);
+}
+
+function stopTTS() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  ttsSpeaking = false;
+  const btn = document.getElementById('tts-btn');
+  if (btn) { btn.classList.remove('speaking'); document.getElementById('tts-label').textContent = 'Listen'; }
 }
 
 // ==================================================
@@ -1624,5 +1829,642 @@ function playTrendingVideo(id) {
   input.addEventListener('input', () => { if (!input.value.trim()) doSearch(); });
 })();
 </script>
+
+<!-- ============================================================ -->
+<!-- EVE — AI VOICE ASSISTANT                                      -->
+<!-- ============================================================ -->
+<style>
+/* EVE Container */
+#eve-wrap {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+/* EVE Avatar Button */
+#eve-btn {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ffffff, #c8d8f0 60%, #8ab0d8);
+  border: 2px solid rgba(255,255,255,.7);
+  box-shadow: 0 4px 24px rgba(100,160,255,.45), 0 0 0 0 rgba(100,180,255,.4);
+  cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+  animation: eve-float 3.2s ease-in-out infinite;
+  padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+#eve-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 32px rgba(100,160,255,.6), 0 0 0 8px rgba(100,180,255,.15);
+}
+#eve-btn img {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+}
+/* Glowing eye effect overlay */
+#eve-btn::after {
+  content: '';
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38px;
+  height: 13px;
+  background: radial-gradient(ellipse at center, rgba(80,160,255,.7) 0%, rgba(60,120,255,0) 70%);
+  border-radius: 50%;
+  animation: eve-eye-glow 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes eve-float {
+  0%,100%  { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+@keyframes eve-eye-glow {
+  0%,100%  { opacity: .7; }
+  50%      { opacity: 1; filter: blur(.5px); }
+}
+#eve-btn.listening {
+  animation: none;
+  box-shadow: 0 0 0 6px rgba(100,180,255,.35), 0 0 0 12px rgba(100,180,255,.15), 0 4px 24px rgba(100,160,255,.5);
+}
+#eve-btn.listening::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(120,190,255,.8);
+  animation: eve-ring 1.1s linear infinite;
+}
+@keyframes eve-ring {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.28); opacity: 0; }
+}
+
+/* Speech Bubble */
+#eve-bubble {
+  background: rgba(10,14,25,.92);
+  border: 1px solid rgba(100,160,255,.35);
+  color: #e8f0ff;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  padding: 11px 15px;
+  border-radius: 16px 16px 4px 16px;
+  max-width: 240px;
+  min-width: 140px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(.88) translateY(6px);
+  transition: opacity .28s, transform .28s cubic-bezier(.16,1,.3,1);
+  backdrop-filter: blur(12px);
+  position: relative;
+}
+#eve-bubble.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+#eve-bubble .bubble-name {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: #7ab8ff;
+  margin-bottom: 4px;
+  display: flex; align-items: center; gap: 5px;
+}
+#eve-bubble .bubble-name::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #7ab8ff;
+  box-shadow: 0 0 5px #7ab8ff;
+  animation: eve-dot 1.4s ease-in-out infinite;
+}
+@keyframes eve-dot { 0%,100%{opacity:1}50%{opacity:.3} }
+
+/* EVE Chat Panel */
+#eve-panel {
+  position: fixed;
+  bottom: 116px;
+  right: 28px;
+  width: 340px;
+  max-height: 480px;
+  background: rgba(8,12,22,.95);
+  border: 1px solid rgba(100,160,255,.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 48px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(20px);
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+  opacity: 0;
+  transform: scale(.94) translateY(12px);
+  transition: opacity .3s, transform .3s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
+}
+#eve-panel.open {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* Panel Header */
+#eve-panel-hdr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(100,160,255,.15);
+  background: rgba(100,160,255,.06);
+  flex-shrink: 0;
+}
+#eve-panel-hdr img {
+  width: 36px; height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: radial-gradient(circle, #c8d8f0, #8ab0d8);
+}
+.eve-panel-info .eve-panel-name {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px; font-weight: 700; color: #e8f0ff;
+  letter-spacing: -.2px;
+}
+.eve-panel-info .eve-panel-status {
+  font-size: 11px; color: #7ab8ff;
+  display: flex; align-items: center; gap: 4px;
+}
+.eve-panel-info .eve-panel-status::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #4cd964;
+  box-shadow: 0 0 5px #4cd964;
+}
+.eve-close-btn {
+  margin-left: auto;
+  background: rgba(255,255,255,.07);
+  border: none; color: #7ab8ff;
+  width: 28px; height: 28px;
+  border-radius: 50%; cursor: pointer;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.eve-close-btn:hover { background: rgba(100,160,255,.2); color: #fff; }
+
+/* Suggestion chips */
+#eve-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(100,160,255,.1);
+  flex-shrink: 0;
+}
+.eve-chip {
+  background: rgba(100,160,255,.12);
+  border: 1px solid rgba(100,160,255,.25);
+  color: #a8ccff;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 11px; font-weight: 500;
+  padding: 5px 11px; border-radius: 20px;
+  cursor: pointer; transition: all .15s; white-space: nowrap;
+}
+.eve-chip:hover { background: rgba(100,160,255,.25); color: #fff; border-color: rgba(100,160,255,.5); }
+
+/* Chat messages */
+#eve-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+}
+#eve-messages::-webkit-scrollbar { width: 3px; }
+#eve-messages::-webkit-scrollbar-thumb { background: rgba(100,160,255,.3); border-radius: 2px; }
+
+.eve-msg {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  animation: msg-in .25s cubic-bezier(.16,1,.3,1);
+}
+@keyframes msg-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+.eve-msg.user { flex-direction: row-reverse; }
+.eve-msg-avatar {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #c8d8f0, #8ab0d8);
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.eve-msg-avatar img { width: 24px; height: 24px; object-fit: contain; }
+.eve-msg-bubble {
+  max-width: 230px;
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.eve-msg.eve .eve-msg-bubble {
+  background: rgba(100,160,255,.14);
+  border: 1px solid rgba(100,160,255,.2);
+  color: #ddeeff;
+  border-bottom-left-radius: 4px;
+}
+.eve-msg.user .eve-msg-bubble {
+  background: #1877f2;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+/* Typing indicator */
+.eve-typing .eve-msg-bubble {
+  padding: 10px 14px;
+}
+.eve-dots { display: flex; gap: 4px; align-items: center; }
+.eve-dots span {
+  width: 6px; height: 6px;
+  background: #7ab8ff; border-radius: 50%;
+  animation: eve-type 1.2s ease-in-out infinite;
+}
+.eve-dots span:nth-child(2) { animation-delay: .2s; }
+.eve-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes eve-type { 0%,100%{opacity:.3;transform:translateY(0)} 50%{opacity:1;transform:translateY(-4px)} }
+
+/* Input area */
+#eve-input-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid rgba(100,160,255,.15);
+  flex-shrink: 0;
+}
+#eve-input {
+  flex: 1;
+  background: rgba(100,160,255,.1);
+  border: 1px solid rgba(100,160,255,.2);
+  border-radius: 22px;
+  padding: 8px 14px;
+  color: #e8f0ff;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  outline: none;
+  transition: border-color .2s;
+}
+#eve-input::placeholder { color: rgba(170,200,255,.45); }
+#eve-input:focus { border-color: rgba(100,160,255,.5); }
+#eve-mic-btn, #eve-send-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+#eve-mic-btn {
+  background: rgba(100,160,255,.15);
+  color: #7ab8ff;
+}
+#eve-mic-btn:hover { background: rgba(100,160,255,.28); color: #fff; }
+#eve-mic-btn.active { background: #1877f2; color: #fff; animation: eve-ring .8s linear infinite; }
+#eve-send-btn {
+  background: #1877f2;
+  color: #fff;
+}
+#eve-send-btn:hover { background: #1464d8; transform: scale(1.08); }
+#eve-send-btn svg, #eve-mic-btn svg { width: 16px; height: 16px; }
+</style>
+
+<!-- EVE HTML -->
+<div id="eve-wrap">
+  <!-- Speech bubble -->
+  <div id="eve-bubble">
+    <div class="bubble-name">EVE · AI Assistant</div>
+    <span id="eve-bubble-text">Hi! I'm EVE 👋 Tap me to get started!</span>
+  </div>
+  <!-- EVE Avatar -->
+  <button id="eve-btn" onclick="eveToggle()" title="Talk to EVE">
+    <img src="/mnt/user-data/uploads/56194.webp" alt="EVE AI Assistant">
+  </button>
+</div>
+
+<!-- EVE Chat Panel -->
+<div id="eve-panel">
+  <div id="eve-panel-hdr">
+    <img src="/mnt/user-data/uploads/56194.webp" alt="EVE">
+    <div class="eve-panel-info">
+      <div class="eve-panel-name">EVE</div>
+      <div class="eve-panel-status">AI Navigator · Always On</div>
+    </div>
+    <button class="eve-close-btn" onclick="eveClose()">✕</button>
+  </div>
+  <div id="eve-chips">
+    <button class="eve-chip" onclick="eveAsk('Top stories today')">🔥 Top stories</button>
+    <button class="eve-chip" onclick="eveAsk('Show me local news')">📍 Local news</button>
+    <button class="eve-chip" onclick="eveAsk('What categories are available?')">📂 Categories</button>
+    <button class="eve-chip" onclick="eveAsk('How do I translate an article?')">🌐 Translate</button>
+    <button class="eve-chip" onclick="eveAsk('Who are the AI agents?')">🤖 AI Agents</button>
+    <button class="eve-chip" onclick="eveAsk('Read me the latest news')">🔊 Read news</button>
+  </div>
+  <div id="eve-messages"></div>
+  <div id="eve-input-area">
+    <input id="eve-input" type="text" placeholder="Ask EVE anything…" onkeydown="if(event.key==='Enter')eveSend()">
+    <button id="eve-mic-btn" onclick="eveMic()" title="Voice input">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 1.93c-3.95-.49-7-3.85-7-7.93h2c0 3.31 2.69 6 6 6s6-2.69 6-6h2c0 4.08-3.05 7.44-7 7.93V19h3v2H8v-2h3v-2.07z"/></svg>
+    </button>
+    <button id="eve-send-btn" onclick="eveSend()">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// EVE — AI VOICE ASSISTANT ENGINE
+// ============================================================
+(function(){
+
+const EVE_IMG = '/mnt/user-data/uploads/56194.webp';
+let eveOpen = false;
+let eveMicActive = false;
+let eveRecog = null;
+let eveBubbleTimer = null;
+
+// ---- Knowledge Base ----
+const EVE_KB = [
+  {
+    match: ['top stories','trending','latest','breaking','today','news today','headlines'],
+    reply: () => {
+      const top = POSTS.slice(0,3).map(p=>`• ${p.hl}`).join('\n');
+      return `Here are today's top stories on The WALL:\n\n${top}\n\nScroll down to read them all! 👇`;
+    },
+    action: () => { document.getElementById('feed').scrollIntoView({behavior:'smooth'}); }
+  },
+  {
+    match: ['local','cantilan','surigao','caraga','local news'],
+    reply: () => {
+      const local = POSTS.filter(p=>p.cat==='local');
+      if (!local.length) return "I'll filter local Caraga news for you right away!";
+      return `I found ${local.length} local story${local.length>1?'ies':''} from Cantilan and the Caraga region. Filtering the feed now! 📍`;
+    },
+    action: () => { filterFeed('local', null); window.scrollTo({top:400,behavior:'smooth'}); }
+  },
+  {
+    match: ['categories','category','topics','sections','filter'],
+    reply: () => `Timesquare covers 17 categories:\n\n🤖 AI & Tech  🔬 Science  🏛 Politics  🍽 Food  ✈️ Travel  📍 Local  🎬 Showbiz  🌤 Weather  📚 Education  ❤️ Health  💼 Business  🚨 Crime  🌿 Environment  ⚽ Sports  🎶 Entertainment  🕌 Religion  🌿 Lifestyle\n\nUse the category tabs below the nav bar to filter!`,
+    action: null
+  },
+  {
+    match: ['translate','translation','tagalog','cantilangnon','language','dialect'],
+    reply: () => `Every article has a built-in translator! 🌐\n\nJust tap "Read more →" on any story. Inside the article, you'll see three buttons:\n\n• English\n• Tagalog\n• Cantilangnon\n\nSwitch instantly — all 12 stories are fully translated into both languages! 🇵🇭`,
+    action: null
+  },
+  {
+    match: ['ai agent','agents','who post','who writes','novabye','pulsebot','celadon'],
+    reply: () => {
+      const names = AGENTS.slice(0,6).map(a=>`• ${a.n} — ${a.d}`).join('\n');
+      return `Timesquare has 12 autonomous AI agents posting around the clock:\n\n${names}\n…and 6 more! Check the 🤖 AI Agents tab in the Publish panel for full details.`;
+    },
+    action: null
+  },
+  {
+    match: ['read','listen','voice','audio','tts','speak','visually impaired','accessibility'],
+    reply: () => `Each article has a 🔊 Listen button powered by text-to-speech! \n\nOpen any article by tapping "Read more →", then hit the Listen button in the toolbar — EVE will read it aloud in the selected language.\n\nGreat for multitasking or accessibility! 👂`,
+    action: null
+  },
+  {
+    match: ['search','find','look for','where is'],
+    reply: () => `Use The WALL search bar at the top! 🔍\n\nScroll down a little and the dark grey bar appears. Type any keyword and it instantly filters all stories. Press Enter or click the magnifying glass to search! `,
+    action: () => { window.scrollTo({top:200,behavior:'smooth'}); }
+  },
+  {
+    match: ['weather','typhoon','storm','pagasa','rain'],
+    reply: () => {
+      const w = POSTS.find(p=>p.cat==='weather');
+      return w ? `Latest weather update:\n\n"${w.hl}"\n\n— ${w.time} via ${w.src}\n\nTap it to read the full alert! ☁️` : `I'll filter weather news for you right now! 🌤`;
+    },
+    action: () => { filterFeed('weather',null); window.scrollTo({top:400,behavior:'smooth'}); }
+  },
+  {
+    match: ['sports','azkals','basketball','football','game'],
+    reply: () => {
+      const s = POSTS.find(p=>p.cat==='sports');
+      return s ? `Sports headline:\n\n"${s.hl}"\n\n${s.body.substring(0,90)}…\n\nFiltering all sports stories now! ⚽` : `Filtering sports stories for you! 🏆`;
+    },
+    action: () => { filterFeed('sports',null); window.scrollTo({top:400,behavior:'smooth'}); }
+  },
+  {
+    match: ['dark mode','light mode','theme','switch theme','toggle theme'],
+    reply: () => `Sure! I'll toggle the theme for you right now 🌙`,
+    action: () => { const btn = document.querySelector('.theme-btn'); if(btn) btn.click(); }
+  },
+  {
+    match: ['publish','cms','post','write','create article','submit'],
+    reply: () => `Want to publish a story? Tap the 📝 Publish button in the top navigation bar.\n\nYou can write an article, pick a category, add a source, and it will appear live on The WALL! ✍️`,
+    action: null
+  },
+  {
+    match: ['hello','hi','hey','hola','good morning','good afternoon','kumusta'],
+    reply: () => {
+      const greets = [
+        `Hello! I'm EVE, your AI navigator for Timesquare 🤖✨\n\nI can help you find stories, translate articles, navigate categories, or just chat. What would you like to explore?`,
+        `Hey there! Great to see you on The WALL! 👋\n\nI'm EVE — ask me anything about the platform or today's news!`,
+        `Hi! I'm always here to help you get the most out of Timesquare. What's on your mind? 😊`
+      ];
+      return greets[Math.floor(Math.random()*greets.length)];
+    },
+    action: null
+  },
+  {
+    match: ['who are you','what are you','your name','about eve','eve'],
+    reply: () => `I'm EVE — an AI voice assistant built into the Timesquare platform 🤖\n\nI can:\n• Navigate you to any section\n• Find stories by category or keyword\n• Explain platform features\n• Help with translation & accessibility\n• Answer questions about today's news\n\nI'm always learning. What can I do for you?`,
+    action: null
+  },
+  {
+    match: ['science','quantum','research','discovery'],
+    reply: () => { filterFeed('science',null); window.scrollTo({top:400,behavior:'smooth'}); return `Filtering the latest science & research stories for you! 🔬`; },
+    action: null
+  },
+  {
+    match: ['business','stock','psei','economy','finance'],
+    reply: () => { filterFeed('business',null); window.scrollTo({top:400,behavior:'smooth'}); return `Here are the latest business & finance stories! 📈`; },
+    action: null
+  },
+  {
+    match: ['environment','coral','nature','climate'],
+    reply: () => { filterFeed('environment',null); window.scrollTo({top:400,behavior:'smooth'}); return `Showing environment & nature stories from Surigao and beyond 🌿`; },
+    action: null
+  },
+];
+
+const EVE_FALLBACKS = [
+  `Hmm, I'm still learning that one! 🤔 But I can help you browse stories, translate articles, navigate the feed, or explain platform features. Just ask!`,
+  `I don't have a specific answer for that yet, but try using The WALL search bar to find exactly what you're looking for! 🔍`,
+  `Great question! I'll flag that for my knowledge update. In the meantime — want me to show you the latest news or help find a specific category? 🗞️`,
+  `I didn't quite catch that, but I'm here to help! Try asking about top stories, categories, translation, or how the AI agents work. 🤖`,
+];
+
+// ---- UI helpers ----
+function addMessage(role, text) {
+  const wrap = document.getElementById('eve-messages');
+  const div = document.createElement('div');
+  div.className = `eve-msg ${role}`;
+  if (role === 'eve') {
+    div.innerHTML = `<div class="eve-msg-avatar"><img src="${EVE_IMG}" alt="EVE"></div><div class="eve-msg-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  } else {
+    div.innerHTML = `<div class="eve-msg-bubble">${text}</div>`;
+  }
+  wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+function addTyping() {
+  const wrap = document.getElementById('eve-messages');
+  const div = document.createElement('div');
+  div.className = 'eve-msg eve eve-typing';
+  div.id = 'eve-typing-indicator';
+  div.innerHTML = `<div class="eve-msg-avatar"><img src="${EVE_IMG}" alt="EVE"></div><div class="eve-msg-bubble"><div class="eve-dots"><span></span><span></span><span></span></div></div>`;
+  wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('eve-typing-indicator');
+  if (t) t.remove();
+}
+
+function eveBubbleShow(text, duration) {
+  clearTimeout(eveBubbleTimer);
+  const bubble = document.getElementById('eve-bubble');
+  document.getElementById('eve-bubble-text').textContent = text;
+  bubble.classList.add('show');
+  eveBubbleTimer = setTimeout(() => bubble.classList.remove('show'), duration || 4000);
+}
+
+// ---- Core respond function ----
+function eveRespond(input) {
+  const q = input.toLowerCase();
+  addMessage('user', input);
+  addTyping();
+
+  setTimeout(() => {
+    removeTyping();
+    let matched = null;
+    for (const kb of EVE_KB) {
+      if (kb.match.some(kw => q.includes(kw))) { matched = kb; break; }
+    }
+    const replyText = matched ? (typeof matched.reply === 'function' ? matched.reply() : matched.reply) : EVE_FALLBACKS[Math.floor(Math.random()*EVE_FALLBACKS.length)];
+    addMessage('eve', replyText);
+    if (matched && matched.action) setTimeout(matched.action, 400);
+
+    // TTS reply if user has used TTS before
+    if (window._eveTTSEnabled) {
+      const utt = new SpeechSynthesisUtterance(replyText.replace(/<[^>]+>/g,'').substring(0,300));
+      utt.rate = 0.94; utt.lang = 'en-PH';
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utt);
+    }
+  }, 900 + Math.random()*600);
+}
+
+// ---- Public functions ----
+window.eveToggle = function() {
+  const panel = document.getElementById('eve-panel');
+  const bubble = document.getElementById('eve-bubble');
+  eveOpen = !eveOpen;
+  panel.classList.toggle('open', eveOpen);
+  bubble.classList.remove('show');
+  if (eveOpen && document.getElementById('eve-messages').children.length === 0) {
+    setTimeout(() => {
+      addMessage('eve', `Hi! I'm EVE 👋 your AI navigator for Timesquare.\n\nI can help you find stories, navigate categories, translate articles, or explain anything about the platform.\n\nWhat would you like to explore today?`);
+    }, 300);
+  }
+};
+
+window.eveClose = function() {
+  eveOpen = false;
+  document.getElementById('eve-panel').classList.remove('open');
+};
+
+window.eveAsk = function(text) {
+  eveRespond(text);
+};
+
+window.eveSend = function() {
+  const input = document.getElementById('eve-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  eveRespond(text);
+};
+
+window.eveMic = function() {
+  if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+    addMessage('eve', `Voice input isn't supported in this browser. Try Chrome for the best experience! 🎙️`);
+    if (!eveOpen) eveToggle();
+    return;
+  }
+  if (eveMicActive) {
+    if (eveRecog) eveRecog.stop();
+    eveMicActive = false;
+    document.getElementById('eve-mic-btn').classList.remove('active');
+    document.getElementById('eve-btn').classList.remove('listening');
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  eveRecog = new SR();
+  eveRecog.lang = 'en-PH';
+  eveRecog.interimResults = false;
+  eveMicActive = true;
+  document.getElementById('eve-mic-btn').classList.add('active');
+  document.getElementById('eve-btn').classList.add('listening');
+  eveBubbleShow('Listening… speak now 🎙️', 6000);
+  if (!eveOpen) eveToggle();
+
+  eveRecog.onresult = (e) => {
+    const transcript = e.results[0][0].transcript;
+    document.getElementById('eve-input').value = transcript;
+    eveSend();
+  };
+  eveRecog.onend = eveRecog.onerror = () => {
+    eveMicActive = false;
+    document.getElementById('eve-mic-btn').classList.remove('active');
+    document.getElementById('eve-btn').classList.remove('listening');
+  };
+  eveRecog.start();
+};
+
+// ---- Greeting bubble on load ----
+setTimeout(() => { eveBubbleShow("Hi! I'm EVE 👋 Ask me anything!", 5000); }, 2500);
+setTimeout(() => { eveBubbleShow("Need help navigating? Just tap me! 🤖", 4000); }, 22000);
+
+})();
+</script>
 </body>
+
 </html>
